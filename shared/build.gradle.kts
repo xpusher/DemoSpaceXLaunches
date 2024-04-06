@@ -4,6 +4,14 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.sqldelight)
+}
+sqldelight {
+    databases {
+        create("Player") {
+            packageName.set("com.example.project")
+        }
+    }
 }
 
 kotlin {
@@ -38,7 +46,21 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // put your Multiplatform dependencies here
+            implementation(libs.sqldelight.runtime)
         }
+        androidMain.dependencies {
+            implementation(libs.sqldelight.android)
+        }
+        nativeMain.dependencies {
+            implementation(libs.sqldelight.native)
+        }
+        jsMain.dependencies {
+            implementation(libs.sqldelight.web)
+        }
+        jvmMain.dependencies {
+            implementation(libs.sqldelight.sqlite)
+        }
+
     }
 }
 
