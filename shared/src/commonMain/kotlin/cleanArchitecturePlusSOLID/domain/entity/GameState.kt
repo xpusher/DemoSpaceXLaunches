@@ -1,4 +1,4 @@
-package cleanArchitecture.domain.entity
+package cleanArchitecturePlusSOLID.domain.entity
 
 import dto.GameStateFromJson
 import dto.GameStateToJson

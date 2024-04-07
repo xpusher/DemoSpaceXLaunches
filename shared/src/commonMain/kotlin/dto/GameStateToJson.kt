@@ -1,6 +1,6 @@
 package dto
 
-import cleanArchitecture.domain.entity.GameState
+import cleanArchitecturePlusSOLID.domain.entity.GameState
 
 interface GameStateToJson {
     fun toString(gameState:GameState):String?

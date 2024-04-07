@@ -1,19 +1,25 @@
 package org.example.project
 
 import App
-import Repository
+import RepositoryImpl
+import UserActionImpl
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         setContent {
-            App(Repository(this))
+            val repository= remember { RepositoryImpl(this) }
+            val userAction= remember { UserActionImpl(repository.sqlDriver) }
+            App(repository,userAction)
         }
     }
 }
@@ -21,5 +27,6 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App()
+     val repository= RepositoryImpl(LocalContext.current)
+    App(repository,UserActionImpl(repository.sqlDriver))
 }

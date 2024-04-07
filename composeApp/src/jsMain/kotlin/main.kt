@@ -3,5 +3,8 @@ import androidx.compose.ui.window.CanvasBasedWindow
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    CanvasBasedWindow(canvasElementId = "ComposeTarget") { App(Repository()) }
+    CanvasBasedWindow(canvasElementId = "ComposeTarget") {
+        val repositoryImpl=RepositoryImpl()
+        App(repositoryImpl,UserActionImpl(repositoryImpl.sqlDriver))
+    }
 }
