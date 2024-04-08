@@ -4,8 +4,12 @@ import android.content.Context.MODE_PRIVATE
 import app.cash.sqldelight.db.SqlDriver
 import cleanArchitecturePlusSOLID.data.Repository
 import cleanArchitecturePlusSOLID.domain.entity.GameState
+import com.example.project.Player
 import dto.GameStateFromJson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 
 class RepositoryImpl(context: Context) : Repository {
@@ -36,8 +40,12 @@ class RepositoryImpl(context: Context) : Repository {
     override val mutableGameState =
         MutableStateFlow(this.readGameState())
 
-    override val sqlDriver: SqlDriver=
-        DriverFactory(context).createDriver()
+    override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
 
+    init {
+        CoroutineScope(Dispatchers.Default).launch {
+            mutableSqlDriver.value = DriverFactory(context).createDriver()
+        }
+    }
 
 }

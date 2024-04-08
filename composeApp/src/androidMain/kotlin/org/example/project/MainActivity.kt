@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val repository= remember { RepositoryImpl(this) }
-            val userAction= remember { UserActionImpl(repository.sqlDriver) }
+            val userAction= remember { UserActionImpl(repository.mutableSqlDriver) }
             App(repository,userAction)
         }
     }
@@ -28,5 +28,5 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppAndroidPreview() {
      val repository= RepositoryImpl(LocalContext.current)
-    App(repository,UserActionImpl(repository.sqlDriver))
+    App(repository,UserActionImpl(repository.mutableSqlDriver))
 }

@@ -6,13 +6,14 @@ import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.example.project.Player
 
 actual class DriverFactory(private val context: Context){
-    actual fun createDriver(): SqlDriver {
-        //return AndroidSqliteDriver(Player.Schema, context, "test.db")
-        return AndroidSqliteDriver(
+    actual suspend fun createDriver(): SqlDriver {
+        val sqlDriver=AndroidSqliteDriver(
             schema = Player.Schema.synchronous(),
             context = context,
             callback = object :AndroidSqliteDriver.Callback(Player.Schema.synchronous()){},
             name = "test.db")
+        Player.Schema.create(sqlDriver).await()
+        return sqlDriver
     }
 
 }

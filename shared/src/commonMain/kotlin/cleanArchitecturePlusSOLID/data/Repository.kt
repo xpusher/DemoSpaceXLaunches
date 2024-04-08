@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //region SOLID -  OCP, LSP, ISP, DIP
 interface Repository:ReadGameState,StoreGameState {
     val  mutableGameState:MutableStateFlow<GameState>
-    val sqlDriver:SqlDriver
+    val mutableSqlDriver:MutableStateFlow<SqlDriver?>
 }
 //endregion
 
