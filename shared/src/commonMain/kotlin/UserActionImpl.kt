@@ -13,16 +13,14 @@ class UserActionImpl(private val mutableSqlDriver: MutableStateFlow<SqlDriver?>)
 
     override fun testRequestKtor() {
 
-
         CoroutineScope(Dispatchers.Default).launch {
             mutableSqlDriver.value?.let {sqlDriver->
                     val player=Player(sqlDriver)
-//                    player.playerQueries.createTable()
-//                    player.playerQueries.createIndex()
-//                    player.playerQueries.insertTest()
                     player.playerQueries.insert(
-                        (player.playerQueries.selectCount().awaitAsOne() + 1),"QQQ")
-                    mutableTestString.value=player.playerQueries.selectAll().awaitAsList().toString()
+                        (player.playerQueries.selectCount().awaitAsOne() + 1),
+                        "QQQ")
+                    mutableTestString.value=
+                        player.playerQueries.selectAll().awaitAsList().toString()
                 }
 
             }
