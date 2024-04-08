@@ -63,6 +63,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(projects.shared)
+            implementation(libs.kotlinx.coroutines.core)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

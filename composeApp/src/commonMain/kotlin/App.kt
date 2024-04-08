@@ -16,6 +16,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.compose_multiplatform
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -23,11 +26,18 @@ import kotlinproject.composeapp.generated.resources.compose_multiplatform
 fun App(repository: Repository?=null,userActions: UserActions?) {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
+
+        var tempText by remember { mutableStateOf("init") }
+        LaunchedEffect(""){
+            userActions?.mutableTestString?.collectLatest{
+                tempText=it
+            }
+        }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Button(onClick = {
                 userActions?.testRequestKtor()
             }) {
-                Text("empty")
+                Text(tempText)
             }
             Button(onClick = { showContent = !showContent }) {
                 Text("Click me!")

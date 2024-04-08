@@ -10,7 +10,11 @@ INSERT INTO hockeyPlayer (player_number, full_name)
 VALUES (15, 'Ryan Getzlaf');
 
 selectAll:
-SELECT *
+SELECT hockeyPlayer.*
+FROM hockeyPlayer;
+
+selectCount:
+SELECT count(*)
 FROM hockeyPlayer;
 
 insert:

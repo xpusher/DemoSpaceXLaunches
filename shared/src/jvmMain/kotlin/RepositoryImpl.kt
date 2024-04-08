@@ -4,6 +4,7 @@ import cleanArchitecturePlusSOLID.data.Repository
 import cleanArchitecturePlusSOLID.domain.entity.GameState
 import com.example.project.Player
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.runBlocking
 
 
 class RepositoryImpl : Repository {

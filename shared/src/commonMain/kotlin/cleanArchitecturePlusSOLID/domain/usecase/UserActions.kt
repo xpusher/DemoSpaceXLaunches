@@ -1,12 +1,13 @@
 package cleanArchitecturePlusSOLID.domain.usecase
 
-import app.cash.sqldelight.db.SqlDriver
-import com.example.project.Player
+import kotlinx.coroutines.flow.MutableStateFlow
 
 interface UserActions:TestRequestKtor {
 
 }
 interface TestRequestKtor{
+
+    var mutableTestString:MutableStateFlow<String>
     fun testRequestKtor()
 }
 
