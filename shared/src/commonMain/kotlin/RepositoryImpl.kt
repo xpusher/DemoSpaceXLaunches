@@ -1,0 +1,3 @@
+import cleanArchitecturePlusSOLID.data.Repository
+
+expect class RepositoryImpl:Repository

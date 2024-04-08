@@ -12,7 +12,7 @@ actual class DbImpl: Db {
     override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
 
     private val nameFileDb="test.db"
-    actual suspend fun createDriver(): SqlDriver {
+    actual override suspend fun createDriver(): SqlDriver {
         val sqlDriver=
             NativeSqliteDriver(
                 Player.Schema.synchronous(), nameFileDb)

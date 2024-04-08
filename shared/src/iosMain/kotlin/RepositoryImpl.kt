@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 
-class RepositoryImpl : Repository {
+actual class RepositoryImpl : Repository {
     override val db: Db =DbImpl()
 }

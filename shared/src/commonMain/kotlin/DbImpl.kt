@@ -1,7 +1,6 @@
 import app.cash.sqldelight.db.SqlDriver
 import cleanArchitecturePlusSOLID.data.Db
 
-expect class DbImpl: Db {
-    suspend fun createDriver(): SqlDriver
-
+expect class DbImpl: Db{
+    override suspend fun createDriver(): SqlDriver
 }

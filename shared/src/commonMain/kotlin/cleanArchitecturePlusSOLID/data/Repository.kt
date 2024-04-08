@@ -12,5 +12,6 @@ interface Repository {
 //region SOLID - SRP
 interface Db {
     val mutableSqlDriver: MutableStateFlow<SqlDriver?>
+    suspend fun createDriver(): SqlDriver
 }
 //endregion

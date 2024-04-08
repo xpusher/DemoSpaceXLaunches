@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 actual class DbImpl(private val context: Context): Db {
-    actual suspend fun createDriver(): SqlDriver {
+    actual override suspend fun createDriver(): SqlDriver {
         val sqlDriver=AndroidSqliteDriver(
             schema = Player.Schema.synchronous(),
             context = context,

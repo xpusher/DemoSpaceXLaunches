@@ -2,12 +2,10 @@ package cleanArchitecturePlusSOLID.domain.usecase
 
 import kotlinx.coroutines.flow.MutableStateFlow
 
-interface UserActions:TestRequestKtor {
+interface UserActions:TestSimpleButtonClick {
 
 }
-interface TestRequestKtor{
-
-    var mutableTestString:MutableStateFlow<String>
-    fun testRequestKtor()
+interface TestSimpleButtonClick{
+    fun click()
 }
 

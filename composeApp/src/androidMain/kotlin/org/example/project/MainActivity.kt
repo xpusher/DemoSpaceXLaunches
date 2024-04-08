@@ -1,6 +1,7 @@
 package org.example.project
 
 import App
+import PresentationImpl
 import RepositoryImpl
 import UserActionImpl
 import android.os.Bundle
@@ -17,9 +18,10 @@ class MainActivity : ComponentActivity() {
 
 
         setContent {
-            val repository= remember { RepositoryImpl(this) }
-            val userAction= remember { UserActionImpl(repository.db.mutableSqlDriver) }
-            App(repository,userAction)
+            val presentation=PresentationImpl()
+            val userAction= remember {
+                UserActionImpl(RepositoryImpl(this),presentation) }
+            App(userAction,presentation)
         }
     }
 }
@@ -27,6 +29,6 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-     val repository= RepositoryImpl(LocalContext.current)
-    App(repository,UserActionImpl(repository.db.mutableSqlDriver))
+    val presentation=PresentationImpl()
+    App(UserActionImpl(RepositoryImpl(LocalContext.current),presentation),presentation)
 }

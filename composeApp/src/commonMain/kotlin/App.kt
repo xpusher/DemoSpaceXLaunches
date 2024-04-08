@@ -8,7 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import cleanArchitecturePlusSOLID.data.Repository
+import cleanArchitecturePlusSOLID.Presentation.Presentation
 import cleanArchitecturePlusSOLID.domain.usecase.UserActions
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -21,19 +21,20 @@ import kotlinx.coroutines.flow.collectLatest
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 @Preview
-fun App(repository: Repository?=null,userActions: UserActions?) {
+fun App(userActions: UserActions,presentation: Presentation) {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
 
         var tempText by remember { mutableStateOf("init") }
+
         LaunchedEffect(""){
-            userActions?.mutableTestString?.collectLatest{
+            presentation.mutableTestString.collectLatest{
                 tempText=it
             }
         }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Button(onClick = {
-                userActions?.testRequestKtor()
+                userActions.click()
             }) {
                 Text(tempText)
             }

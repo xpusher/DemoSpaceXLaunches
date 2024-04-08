@@ -12,7 +12,7 @@ import org.w3c.dom.Worker
 actual class DbImpl: Db {
     override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
 
-    actual suspend fun createDriver(): SqlDriver {
+    actual override suspend fun createDriver(): SqlDriver {
         val sqlDriver=WebWorkerDriver(
             Worker(
                 js("""new URL("@cashapp/sqldelight-sqljs-worker/sqljs.worker.js", import.meta.url)""")
