@@ -5,6 +5,6 @@ import androidx.compose.ui.window.CanvasBasedWindow
 fun main() {
     CanvasBasedWindow(canvasElementId = "ComposeTarget") {
         val repositoryImpl=RepositoryImpl()
-        App(repositoryImpl,UserActionImpl(repositoryImpl.mutableSqlDriver))
+        App(repositoryImpl,UserActionImpl(repositoryImpl.db.mutableSqlDriver))
     }
 }

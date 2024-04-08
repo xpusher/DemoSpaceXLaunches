@@ -4,6 +4,6 @@ import androidx.compose.ui.window.application
 fun main() = application {
     Window(onCloseRequest = ::exitApplication, title = "KotlinProject") {
         val repositoryImpl=RepositoryImpl()
-        App(repositoryImpl,UserActionImpl(repositoryImpl.mutableSqlDriver))
+        App(repositoryImpl,UserActionImpl(repositoryImpl.db.mutableSqlDriver))
     }
 }

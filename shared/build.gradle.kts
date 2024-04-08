@@ -53,6 +53,7 @@ kotlin {
         rootProject.the<YarnRootExtension>().reportNewYarnLock = false // true
         rootProject.the<YarnRootExtension>().yarnLockAutoReplace = false // true
     }
+
     sourceSets {
         commonMain.dependencies {
             // put your Multiplatform dependencies here

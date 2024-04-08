@@ -2,9 +2,14 @@ import android.content.Context
 import app.cash.sqldelight.async.coroutines.synchronous
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import cleanArchitecturePlusSOLID.data.Db
 import com.example.project.Player
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
-actual class DriverFactory(private val context: Context){
+actual class DbImpl(private val context: Context): Db {
     actual suspend fun createDriver(): SqlDriver {
         val sqlDriver=AndroidSqliteDriver(
             schema = Player.Schema.synchronous(),
@@ -13,6 +18,14 @@ actual class DriverFactory(private val context: Context){
             name = "test.db")
         Player.Schema.create(sqlDriver).await()
         return sqlDriver
+    }
+
+    override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
+
+    init {
+        CoroutineScope(Dispatchers.Default).launch {
+            mutableSqlDriver.value = DbImpl(context).createDriver()
+        }
     }
 
 }
