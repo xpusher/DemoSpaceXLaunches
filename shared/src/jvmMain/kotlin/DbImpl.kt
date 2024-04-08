@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-actual class DbImpl: Db {
+actual class DbImpl: DbBaseImpl() {
 
     private val nameFileDb="test.db"
     actual override suspend fun createDriver(): SqlDriver {
@@ -15,13 +15,6 @@ actual class DbImpl: Db {
             "jdbc:sqlite:file:$nameFileDb?cache=shared")
         Player.Schema.create(sqlDriver).await()
         return  sqlDriver
-    }
-    override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
-
-    init {
-        CoroutineScope(Dispatchers.Default).launch {
-            mutableSqlDriver.value = DbImpl().createDriver()
-        }
     }
 
 }

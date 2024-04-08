@@ -10,4 +10,5 @@ import kotlinx.coroutines.launch
 
 actual class RepositoryImpl : Repository {
     override val db: Db =DbImpl()
+    override val network= NetworkImpl()
 }

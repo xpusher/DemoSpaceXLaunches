@@ -9,8 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.w3c.dom.Worker
 
-actual class DbImpl: Db {
-    override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
+actual class DbImpl: DbBaseImpl() {
 
     actual override suspend fun createDriver(): SqlDriver {
         val sqlDriver=WebWorkerDriver(
@@ -20,12 +19,6 @@ actual class DbImpl: Db {
             Player.Schema.create(sqlDriver).await()
         return sqlDriver
 
-    }
-
-    init {
-        CoroutineScope(Dispatchers.Default).launch {
-            mutableSqlDriver.value=DbImpl().createDriver()
-        }
     }
 
 }

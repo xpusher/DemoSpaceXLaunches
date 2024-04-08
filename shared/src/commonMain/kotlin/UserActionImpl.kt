@@ -17,16 +17,10 @@ class UserActionImpl(
     override fun click() {
 
         CoroutineScope(Dispatchers.Default).launch {
-            repository.db.mutableSqlDriver.value?.let {sqlDriver->
-                    val player=Player(sqlDriver)
-                    player.playerQueries.insert(
-                        (player.playerQueries.selectCount().awaitAsOne() + 1),
-                        "QQQ")
-                presentation.mutableTestString.value=
-                        player.playerQueries.selectAll().awaitAsList().toString()
-                }
-
-            }
+            repository.db.addTestRecord()
+            presentation.mutableTestString.value=
+                repository.db.readAllRecords().toString()
+        }
 
 //
 ////            val client = HttpClient(CIO) {}
