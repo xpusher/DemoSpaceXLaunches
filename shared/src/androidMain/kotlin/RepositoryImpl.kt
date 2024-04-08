@@ -4,7 +4,6 @@ import android.content.Context.MODE_PRIVATE
 import app.cash.sqldelight.db.SqlDriver
 import cleanArchitecturePlusSOLID.data.Repository
 import cleanArchitecturePlusSOLID.domain.entity.GameState
-import com.example.project.Player
 import dto.GameStateFromJson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

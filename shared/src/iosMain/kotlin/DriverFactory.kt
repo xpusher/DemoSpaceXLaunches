@@ -2,7 +2,6 @@ import app.cash.sqldelight.async.coroutines.synchronous
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import com.example.project.Player
-import kotlinx.coroutines.runBlocking
 
 actual class DriverFactory {
     private val nameFileDb="test.db"
