@@ -1,9 +1,9 @@
 import cleanArchitecturePlusSOLID.data.Network
+import cleanArchitecturePlusSOLID.domain.entity.TestResponseData
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
-import io.ktor.client.statement.HttpResponse
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -18,8 +18,9 @@ abstract class NetworkBaseImpl:Network {
                 })
             }
         }
-        val response: HttpResponse = client.get(url)
-        return response.body()
+        //val response: HttpResponse = client.get(url)
+        val q:TestResponseData = client.get(url).body()
+        return q.toString()
 
     }
 
