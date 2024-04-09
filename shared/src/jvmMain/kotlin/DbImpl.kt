@@ -1,18 +1,13 @@
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
-import cleanArchitecturePlusSOLID.data.Db
-import com.example.project.Player
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
+import com.example.project.AppDb
 
 actual class DbImpl: DbBaseImpl() {
 
     actual override suspend fun createDriver(): SqlDriver {
         val sqlDriver=JdbcSqliteDriver(
             "jdbc:sqlite:file:$nameFileDb?cache=shared")
-        Player.Schema.create(sqlDriver).await()
+        AppDb.Schema.create(sqlDriver).await()
         return  sqlDriver
     }
 

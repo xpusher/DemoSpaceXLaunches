@@ -5,12 +5,12 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqldelight)
-    kotlin("plugin.serialization") version "1.9.23"
 
+    kotlin("plugin.serialization") version "1.9.23"
 }
 sqldelight {
     databases {
-        create("Player") {
+        create("AppDb") {
             packageName.set("com.example.project")
             generateAsync.set(true)
         }
@@ -67,6 +67,7 @@ kotlin {
             implementation(libs.ktor.client.serialization)
 
 
+            implementation(libs.kotlinx.datetime)
         }
         androidMain.dependencies {
             implementation(libs.sqldelight.android)

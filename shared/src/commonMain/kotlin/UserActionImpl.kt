@@ -1,14 +1,9 @@
-import app.cash.sqldelight.async.coroutines.awaitAsList
-import app.cash.sqldelight.async.coroutines.awaitAsOne
-import app.cash.sqldelight.db.SqlDriver
 import cleanArchitecturePlusSOLID.Presentation.Presentation
 import cleanArchitecturePlusSOLID.data.Repository
 import cleanArchitecturePlusSOLID.domain.usecase.UserActions
-import com.example.project.Player
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class UserActionImpl(
@@ -18,11 +13,7 @@ class UserActionImpl(
     override fun click() {
 
         CoroutineScope(Dispatchers.Unconfined + Job()).launch {
-//            repository.db.addTestRecord()
-//            presentation.mutableTestString.value=
-//                repository.db.readAllRecords().toString()
-
-            presentation.mutableTestString.value=
+            presentation.mutableRocketLaunches.value=
                 repository.network.testRequest()
         }
 

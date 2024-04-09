@@ -1,5 +1,5 @@
 import cleanArchitecturePlusSOLID.data.Network
-import cleanArchitecturePlusSOLID.domain.entity.TestResponseData
+import cleanArchitecturePlusSOLID.domain.entity.RocketLaunch
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -8,8 +8,9 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 abstract class NetworkBaseImpl:Network {
-    override val url="https://httpbin.org/get"
-    override suspend fun testRequest(): String? {
+    //override val url="https://httpbin.org/get"
+    override val url="https://api.spacexdata.com/v5/launches"
+    override suspend fun testRequest(): List<RocketLaunch> {
         val client = HttpClient{
             install(ContentNegotiation) {
                 json(Json {
@@ -18,9 +19,8 @@ abstract class NetworkBaseImpl:Network {
                 })
             }
         }
-        //val response: HttpResponse = client.get(url)
-        val q:TestResponseData = client.get(url).body()
-        return q.toString()
+        val q:List<RocketLaunch> = client.get(url).body()
+        return q
 
     }
 

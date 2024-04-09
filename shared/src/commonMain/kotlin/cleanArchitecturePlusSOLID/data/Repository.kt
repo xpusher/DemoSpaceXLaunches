@@ -1,7 +1,8 @@
 package cleanArchitecturePlusSOLID.data
 
 import app.cash.sqldelight.db.SqlDriver
-import com.example.HockeyPlayer
+import cleanArchitecturePlusSOLID.domain.entity.RocketLaunch
+import com.example.Launch
 import kotlinx.coroutines.flow.MutableStateFlow
 
 //region SOLID -  OCP, LSP, ISP, DIP
@@ -16,12 +17,12 @@ interface Db {
     val mutableSqlDriver: MutableStateFlow<SqlDriver?>
     suspend fun createDriver(): SqlDriver
     suspend fun addTestRecord()
-    suspend fun readAllRecords():List<HockeyPlayer>
+    suspend fun readAllRecords():List<Launch>
 }
 
 interface Network{
     val url:String
-    suspend fun testRequest():String?
+    suspend fun testRequest():List<RocketLaunch>
 }
 
 //endregion
