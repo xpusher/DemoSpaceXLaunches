@@ -60,12 +60,12 @@ kotlin {
             // put your Multiplatform dependencies here
             implementation(libs.sqldelight.runtime)
             implementation(libs.kotlinx.coroutines.core)
-        }
-        androidMain.dependencies {
-            implementation(libs.sqldelight.android)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.negotiation)
             implementation(libs.ktor.client.json)
+        }
+        androidMain.dependencies {
+            implementation(libs.sqldelight.android)
             implementation(libs.ktor.client.android)
         }
         nativeMain.dependencies {
@@ -76,8 +76,6 @@ kotlin {
             //npm install copy-webpack-plugin --save-dev
             implementation(npm("@cashapp/sqldelight-sqljs-worker", "2.0.1"))
             implementation(npm("sql.js", "1.8.0"))
-//            implementation("app.cash.sqldelight:web-worker-driver:2.0.0")
-//            implementation(devNpm("copy-webpack-plugin", "9.1.0"))
         }
         jvmMain.dependencies {
             implementation(libs.sqldelight.sqlite)
@@ -85,6 +83,9 @@ kotlin {
             implementation(libs.ktor.client.negotiation)
             implementation(libs.ktor.client.json)
             implementation(libs.ktor.client.android)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
 
     }
