@@ -9,7 +9,6 @@ import kotlinx.coroutines.launch
 
 actual class DbImpl: DbBaseImpl() {
 
-    private val nameFileDb="test.db"
     actual override suspend fun createDriver(): SqlDriver {
         val sqlDriver=JdbcSqliteDriver(
             "jdbc:sqlite:file:$nameFileDb?cache=shared")

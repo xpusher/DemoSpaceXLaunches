@@ -15,12 +15,13 @@ interface Repository {
 interface Db {
     val mutableSqlDriver: MutableStateFlow<SqlDriver?>
     suspend fun createDriver(): SqlDriver
-
     suspend fun addTestRecord()
     suspend fun readAllRecords():List<HockeyPlayer>
 }
 
 interface Network{
+    val url:String
     suspend fun testRequest():String?
 }
+
 //endregion

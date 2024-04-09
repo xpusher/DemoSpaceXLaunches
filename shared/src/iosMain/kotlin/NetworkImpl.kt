@@ -7,7 +7,7 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-actual class NetworkImpl: Network {
+actual class NetworkImpl: NetworkBaseImpl() {
     override suspend fun testRequest():String? {
         val client = HttpClient{
             install(ContentNegotiation) {
@@ -17,7 +17,8 @@ actual class NetworkImpl: Network {
                 })
             }
         }
-        val response: HttpResponse = client.get("https://httpbin.org/get")
+        val response: HttpResponse =
+            client.get(url)
         return response.body()
 
 

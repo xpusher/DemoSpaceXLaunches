@@ -13,6 +13,8 @@ abstract class DbBaseImpl: Db {
 
     lateinit var player: Player
 
+    protected val nameFileDb="test.db"
+
     override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
     override suspend fun addTestRecord() {
 

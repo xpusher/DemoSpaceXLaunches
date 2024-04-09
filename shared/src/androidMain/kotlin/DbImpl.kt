@@ -15,7 +15,7 @@ actual class DbImpl(private val context: Context): DbBaseImpl() {
             schema = Player.Schema.synchronous(),
             context = context,
             callback = object :AndroidSqliteDriver.Callback(Player.Schema.synchronous()){},
-            name = "test.db")
+            name = nameFileDb)
         Player.Schema.create(sqlDriver).await()
         return sqlDriver
     }
