@@ -21,6 +21,6 @@ interface Db {
 }
 
 interface Network{
-    fun testRequest()
+    suspend fun testRequest():String?
 }
 //endregion

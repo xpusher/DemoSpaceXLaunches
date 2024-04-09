@@ -3,5 +3,5 @@ package cleanArchitecturePlusSOLID.Presentation
 import kotlinx.coroutines.flow.MutableStateFlow
 
 interface Presentation {
-    var mutableTestString: MutableStateFlow<String>
+    var mutableTestString: MutableStateFlow<String?>
 }

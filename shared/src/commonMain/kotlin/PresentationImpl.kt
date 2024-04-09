@@ -3,7 +3,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class PresentationImpl: Presentation {
 
-    override var mutableTestString=
+    override var mutableTestString: MutableStateFlow<String?> =
         MutableStateFlow("00000000000")
 
 

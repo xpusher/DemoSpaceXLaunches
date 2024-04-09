@@ -29,7 +29,7 @@ fun App(userActions: UserActions,presentation: Presentation) {
 
         LaunchedEffect(""){
             presentation.mutableTestString.collectLatest{
-                tempText=it
+                tempText="$it"
             }
         }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {

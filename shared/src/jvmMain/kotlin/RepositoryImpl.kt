@@ -4,7 +4,7 @@ import cleanArchitecturePlusSOLID.data.Network
 import cleanArchitecturePlusSOLID.data.Repository
 
 
-class RepositoryImpl : Repository {
+actual class RepositoryImpl : Repository {
     override val db: Db =DbImpl()
     override val network: Network=NetworkImpl()
 

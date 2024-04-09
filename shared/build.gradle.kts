@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqldelight)
+
 }
 sqldelight {
     databases {
@@ -62,6 +63,10 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.sqldelight.android)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.negotiation)
+            implementation(libs.ktor.client.json)
+            implementation(libs.ktor.client.android)
         }
         nativeMain.dependencies {
             implementation(libs.sqldelight.native)
@@ -76,6 +81,10 @@ kotlin {
         }
         jvmMain.dependencies {
             implementation(libs.sqldelight.sqlite)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.negotiation)
+            implementation(libs.ktor.client.json)
+            implementation(libs.ktor.client.android)
         }
 
     }

@@ -1,7 +1,3 @@
 import cleanArchitecturePlusSOLID.data.Network
 
-class NetworkImpl:Network {
-    override fun testRequest() {
-
-    }
-}
+expect class NetworkImpl:Network
