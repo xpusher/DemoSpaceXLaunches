@@ -1,3 +1,4 @@
+import cleanArchitecturePlusSOLID.data.Repository
 import cleanArchitecturePlusSOLID.domain.Interactor
 import cleanArchitecturePlusSOLID.domain.usecase.UserActions
 import kotlinx.coroutines.CoroutineScope
@@ -10,6 +11,7 @@ abstract class InteractorCommonImpl: Interactor{
     override val presentation= PresentationImpl()
 
     override val userActions = object :UserActions{
+
         override fun click() {
 
             CoroutineScope(Dispatchers.Unconfined + Job()).launch {
