@@ -4,7 +4,7 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.example.project.AppDb
 
-actual class DbImpl(private val context: Context): DbBaseImpl() {
+actual class DbImpl(private val context: Context): DbCommonImpl() {
     actual override suspend fun createDriver(): SqlDriver {
         val sqlDriver=AndroidSqliteDriver(
             schema = AppDb.Schema.synchronous(),

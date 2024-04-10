@@ -1,7 +1,4 @@
-import cleanArchitecturePlusSOLID.data.Network
-import org.w3c.xhr.XMLHttpRequest
-
-actual class NetworkImpl: NetworkBaseImpl() {
+actual class NetworkImpl: NetworkCommonImpl() {
 //    override suspend fun testRequest():String? {
 //
 //        XMLHttpRequest().apply {

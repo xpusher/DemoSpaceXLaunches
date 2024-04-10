@@ -3,7 +3,7 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import com.example.project.AppDb
 
-actual class DbImpl: DbBaseImpl() {
+actual class DbImpl: DbCommonImpl() {
 
     actual override suspend fun createDriver(): SqlDriver {
         val sqlDriver=

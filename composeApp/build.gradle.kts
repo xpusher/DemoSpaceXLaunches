@@ -29,6 +29,11 @@ kotlin {
         compilations.all {
             kotlinOptions {
                 jvmTarget = "11"
+//                freeCompilerArgs += listOf(
+//                    "-P",
+//                    "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+//                )
+
             }
         }
     }
@@ -68,7 +73,10 @@ kotlin {
         }
 
         val jsMain by getting {}
+
+        //task("jsTestClasses"){}
     }
+
 }
 
 android {
@@ -91,6 +99,14 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+
+        kotlinCompilerExtensionVersion = "1.5.11"
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false

@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-abstract class DbBaseImpl: Db {
+abstract class DbCommonImpl: Db {
 
     lateinit var appDb: AppDb
 

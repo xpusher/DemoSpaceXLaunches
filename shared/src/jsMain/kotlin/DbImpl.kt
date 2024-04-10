@@ -4,7 +4,7 @@ import app.cash.sqldelight.driver.worker.WebWorkerDriver
 import com.example.project.AppDb
 import org.w3c.dom.Worker
 
-actual class DbImpl: DbBaseImpl() {
+actual class DbImpl: DbCommonImpl() {
 
     actual override suspend fun createDriver(): SqlDriver {
         val sqlDriver=WebWorkerDriver(

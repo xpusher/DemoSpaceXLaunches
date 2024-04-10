@@ -1,0 +1,3 @@
+import cleanArchitecturePlusSOLID.data.Repository
+
+abstract class RepositoryCommonImpl: Repository
