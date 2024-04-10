@@ -1,1 +1,3 @@
-expect class NetworkImpl:NetworkCommonImpl
+import cleanArchitecturePlusSOLID.data.network.NetworkCommonImpl
+
+expect class NetworkImpl: NetworkCommonImpl

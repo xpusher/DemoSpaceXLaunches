@@ -1,7 +1,8 @@
 package org.example.project
 
 import App
-import InteractorImpl
+import DomainImpl
+import PresentationImpl
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,10 +20,14 @@ class MainActivity : ComponentActivity() {
 
         setContent {
 
-            val interactor=
-                remember { InteractorImpl(this)}
+            val presentation=
+                remember { PresentationImpl() }
 
-            App(interactor)
+            val mainApp=
+                remember { DomainImpl(this,presentation)}
+
+            App(mainApp.interactor,presentation)
+
         }
     }
 }
@@ -34,23 +39,25 @@ fun AppAndroidPreview() {
     val context=
         LocalContext.current
 
-    val interactor=
-        remember {
-            InteractorImpl(context).apply {
-                presentation.mutableRocketLaunches.value= listOf(
-                    RocketLaunch(
-                        flightNumber = 0,
-                        missionName = "dfd",
-                        details = "sdsd",
-                        launchSuccess = true,
-                        launchDateUTC = "2006-03-24T22:30:00.000Z",
-                        links = Links(null,null)
-                    )
+    val presentation=
+        remember { PresentationImpl().apply {
+            mutableRocketLaunches.value= listOf(
+                RocketLaunch(
+                    flightNumber = 0,
+                    missionName = "dfd",
+                    details = "sdsd",
+                    launchSuccess = true,
+                    launchDateUTC = "2006-03-24T22:30:00.000Z",
+                    links = Links(null,null)
                 )
+            )
 
-            }
-        }
-    App(interactor)
+        } }
+
+    val mainApp=
+        remember { DomainImpl(context,presentation)}
+
+    App(mainApp.interactor,presentation)
 
 //    Text(text = "sdsdsd")
 }

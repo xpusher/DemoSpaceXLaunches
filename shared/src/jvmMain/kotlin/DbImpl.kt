@@ -1,5 +1,6 @@
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
+import cleanArchitecturePlusSOLID.data.db.DbCommonImpl
 import com.example.project.AppDb
 
 actual class DbImpl: DbCommonImpl() {

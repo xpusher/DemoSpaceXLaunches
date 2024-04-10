@@ -1,4 +1,5 @@
-import cleanArchitecturePlusSOLID.data.Network
+package cleanArchitecturePlusSOLID.data.network
+
 import cleanArchitecturePlusSOLID.domain.entity.RocketLaunch
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

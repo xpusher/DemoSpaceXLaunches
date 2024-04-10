@@ -6,7 +6,11 @@ import androidx.compose.ui.window.CanvasBasedWindow
 fun main() {
 
     CanvasBasedWindow(canvasElementId = "ComposeTarget") {
-        val interactor= remember { InteractorImpl() }
-        App(interactor)
+        val presentation=
+            remember { PresentationImpl() }
+        val mainApp=
+            remember { DomainImpl(presentation)}
+
+        App(mainApp.interactor,presentation)
     }
 }

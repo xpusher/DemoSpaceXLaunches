@@ -1,6 +1,6 @@
 
-import cleanArchitecturePlusSOLID.data.Db
-import cleanArchitecturePlusSOLID.data.Repository
+import cleanArchitecturePlusSOLID.data.RepositoryCommonImpl
+import cleanArchitecturePlusSOLID.data.db.Db
 
 
 actual class RepositoryImpl : RepositoryCommonImpl() {

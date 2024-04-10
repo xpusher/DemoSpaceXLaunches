@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cleanArchitecturePlusSOLID.Presentation.Presentation
+import cleanArchitecturePlusSOLID.domain.Interactor
 import cleanArchitecturePlusSOLID.domain.entity.RocketLaunch
 import cleanArchitecturePlusSOLID.domain.usecase.UserActions
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -35,20 +36,20 @@ import org.jetbrains.compose.resources.stringResource
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 @Preview
-fun App(interactorImpl: InteractorImpl) {
+fun App(interactor: Interactor,presentation:Presentation) {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
 
         var temp by remember { mutableStateOf<List<RocketLaunch>>(listOf()) }
 
         LaunchedEffect(""){
-            interactorImpl.presentation.mutableRocketLaunches.collectLatest{
+            presentation.mutableRocketLaunches.collectLatest{
                 temp=it
             }
         }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Button(onClick = {
-                interactorImpl.userActions.click()
+                interactor.userActions.click()
             }) {
                 Text("temp")
             }

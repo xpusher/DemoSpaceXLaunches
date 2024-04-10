@@ -1,5 +1,10 @@
 import android.content.Context
+import cleanArchitecturePlusSOLID.Presentation.Presentation
+import cleanArchitecturePlusSOLID.data.Repository
+import cleanArchitecturePlusSOLID.domain.InteractorCommonImpl
 
-actual class InteractorImpl(context: Context): InteractorCommonImpl() {
-    override val repository=RepositoryImpl(context)
+actual class InteractorImpl(
+    override val presentation: Presentation,
+    override val repository: Repository
+): InteractorCommonImpl(presentation,repository) {
 }

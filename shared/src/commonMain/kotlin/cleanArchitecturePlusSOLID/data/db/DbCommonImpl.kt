@@ -1,6 +1,7 @@
+package cleanArchitecturePlusSOLID.data.db
+
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.db.SqlDriver
-import cleanArchitecturePlusSOLID.data.Db
 import com.example.Launch
 import com.example.project.AppDb
 import kotlinx.coroutines.CoroutineScope
@@ -15,10 +16,6 @@ abstract class DbCommonImpl: Db {
     protected val nameFileDb="test.db"
 
     override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
-    override suspend fun addTestRecord() {
-
-    }
-
     override suspend fun readAllRecords(): List<Launch> {
         return appDb.appDbQueries.selectAllLaunchesInfo().awaitAsList()
     }

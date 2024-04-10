@@ -4,8 +4,8 @@ import cleanArchitecturePlusSOLID.Presentation.Presentation
 import cleanArchitecturePlusSOLID.data.Repository
 import cleanArchitecturePlusSOLID.domain.usecase.UserActions
 
-interface Interactor{
-    val repository:Repository
-    val presentation:Presentation
-    val userActions:UserActions
+abstract class Interactor{
+    protected abstract val repository:Repository
+    protected abstract val presentation:Presentation
+    abstract val userActions:UserActions
 }
