@@ -37,6 +37,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 @Preview
 fun App(interactor: Interactor,presentation:Presentation) {
+
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
 

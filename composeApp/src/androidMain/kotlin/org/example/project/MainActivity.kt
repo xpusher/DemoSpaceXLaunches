@@ -1,8 +1,9 @@
 package org.example.project
 
 import App
-import DomainImpl
+import InteractorImpl
 import PresentationImpl
+import RepositoryImpl
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,10 +24,15 @@ class MainActivity : ComponentActivity() {
             val presentation=
                 remember { PresentationImpl() }
 
-            val mainApp=
-                remember { DomainImpl(this,presentation)}
+            val repository=
+                remember {
+                    RepositoryImpl(this)
+                }
 
-            App(mainApp.interactor,presentation)
+            val interactor=
+                remember { InteractorImpl(presentation,repository)}
+
+            App(interactor,presentation)
 
         }
     }
@@ -54,10 +60,15 @@ fun AppAndroidPreview() {
 
         } }
 
-    val mainApp=
-        remember { DomainImpl(context,presentation)}
+        val repository= remember {
+            RepositoryImpl(context)
+        }
 
-    App(mainApp.interactor,presentation)
+    val interactor=
+        remember {
+            InteractorImpl(presentation,repository)
+        }
+    App(interactor,presentation)
 
 //    Text(text = "sdsdsd")
 }

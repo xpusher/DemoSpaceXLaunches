@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 abstract class InteractorCommonImpl(
     override val presentation: Presentation,
     override val repository: Repository) : Interactor(){
-
     override val userActions = object :UserActions{
 
         override fun click() {
