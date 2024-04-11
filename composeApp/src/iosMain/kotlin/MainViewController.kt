@@ -1,5 +1,8 @@
 import androidx.compose.runtime.remember
 import androidx.compose.ui.window.ComposeUIViewController
+import cleanArchitecturePlusSOLID.Presentation.PresentationImpl
+import cleanArchitecturePlusSOLID.data.RepositoryPlatformImpl
+import cleanArchitecturePlusSOLID.domain.InteractorImpl
 
 fun MainViewController() = ComposeUIViewController {
 
@@ -7,11 +10,11 @@ fun MainViewController() = ComposeUIViewController {
         remember { PresentationImpl() }
 
     val repository=
-        remember { RepositoryImpl() }
+        remember { RepositoryPlatformImpl() }
 
     val interactor=
         remember {
-            InteractorImpl(presentation,repository)
+            InteractorImpl(presentation, repository)
         }
 
     App(interactor,presentation)

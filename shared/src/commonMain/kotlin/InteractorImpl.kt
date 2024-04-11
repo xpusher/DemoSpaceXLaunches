@@ -1,3 +1,0 @@
-import cleanArchitecturePlusSOLID.domain.InteractorCommonImpl
-
-expect class InteractorImpl: InteractorCommonImpl

@@ -1,6 +1,9 @@
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.CanvasBasedWindow
+import cleanArchitecturePlusSOLID.Presentation.PresentationImpl
+import cleanArchitecturePlusSOLID.data.RepositoryPlatformImpl
+import cleanArchitecturePlusSOLID.domain.InteractorImpl
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
@@ -11,11 +14,11 @@ fun main() {
             remember { PresentationImpl() }
 
         val repository=
-            remember { RepositoryImpl() }
+            remember { RepositoryPlatformImpl() }
 
         val interactor=
             remember {
-                InteractorImpl(presentation,repository)
+                InteractorImpl(presentation, repository)
             }
 
         App(interactor,presentation)

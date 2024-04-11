@@ -1,6 +1,6 @@
-import cleanArchitecturePlusSOLID.data.network.NetworkCommonImpl
+package cleanArchitecturePlusSOLID.data.network
 
-actual class NetworkImpl: NetworkCommonImpl() {
+actual class NetworkPlatformImpl: NetworkCommonImpl() {
 //    override suspend fun testRequest():String? {
 //
 //        XMLHttpRequest().apply {

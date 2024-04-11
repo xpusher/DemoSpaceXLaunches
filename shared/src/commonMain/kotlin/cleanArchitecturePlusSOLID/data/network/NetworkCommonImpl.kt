@@ -8,11 +8,11 @@ import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-abstract class NetworkCommonImpl:Network {
+abstract class NetworkCommonImpl: Network {
     //override val url="https://httpbin.org/get"
     override val url="https://api.spacexdata.com/v5/launches"
     override suspend fun testRequest(): List<RocketLaunch> {
-        val client = HttpClient{
+        val client = HttpClient {
             install(ContentNegotiation) {
                 json(Json {
                     ignoreUnknownKeys = true

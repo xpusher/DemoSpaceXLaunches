@@ -1,5 +1,0 @@
-package cleanArchitecturePlusSOLID.data
-
-import cleanArchitecturePlusSOLID.data.Repository
-
-abstract class RepositoryCommonImpl: Repository

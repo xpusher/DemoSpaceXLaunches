@@ -1,6 +1,7 @@
-import app.cash.sqldelight.db.SqlDriver
-import cleanArchitecturePlusSOLID.data.db.DbCommonImpl
+package cleanArchitecturePlusSOLID.data.db
 
-expect class DbImpl: DbCommonImpl {
+import app.cash.sqldelight.db.SqlDriver
+
+expect class DbPlatformImpl: DbCommonImpl {
     override suspend fun createDriver(): SqlDriver
 }

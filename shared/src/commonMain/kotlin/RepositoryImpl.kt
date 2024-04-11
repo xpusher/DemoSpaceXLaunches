@@ -1,3 +1,0 @@
-import cleanArchitecturePlusSOLID.data.RepositoryCommonImpl
-
-expect class RepositoryImpl: RepositoryCommonImpl

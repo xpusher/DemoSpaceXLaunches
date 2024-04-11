@@ -1,0 +1,3 @@
+package cleanArchitecturePlusSOLID.data
+
+expect class RepositoryPlatformImpl: Repository

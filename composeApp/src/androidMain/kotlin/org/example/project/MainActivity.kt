@@ -1,9 +1,8 @@
 package org.example.project
 
 import App
-import InteractorImpl
-import PresentationImpl
-import RepositoryImpl
+import cleanArchitecturePlusSOLID.Presentation.PresentationImpl
+import cleanArchitecturePlusSOLID.data.RepositoryPlatformImpl
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import cleanArchitecturePlusSOLID.domain.InteractorImpl
 import cleanArchitecturePlusSOLID.domain.entity.Links
 import cleanArchitecturePlusSOLID.domain.entity.RocketLaunch
 
@@ -26,11 +26,11 @@ class MainActivity : ComponentActivity() {
 
             val repository=
                 remember {
-                    RepositoryImpl(this)
+                    RepositoryPlatformImpl(this)
                 }
 
             val interactor=
-                remember { InteractorImpl(presentation,repository)}
+                remember { InteractorImpl(presentation, repository) }
 
             App(interactor,presentation)
 
@@ -61,12 +61,12 @@ fun AppAndroidPreview() {
         } }
 
         val repository= remember {
-            RepositoryImpl(context)
+            RepositoryPlatformImpl(context)
         }
 
     val interactor=
         remember {
-            InteractorImpl(presentation,repository)
+            InteractorImpl(presentation, repository)
         }
     App(interactor,presentation)
 

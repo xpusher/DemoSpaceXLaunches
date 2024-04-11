@@ -1,0 +1,3 @@
+package cleanArchitecturePlusSOLID.data.network
+
+expect class NetworkPlatformImpl: NetworkCommonImpl

@@ -11,9 +11,7 @@ import kotlinx.coroutines.launch
 
 abstract class DbCommonImpl: Db {
 
-    lateinit var appDb: AppDb
-
-    protected val nameFileDb="test.db"
+    private lateinit var appDb: AppDb
 
     override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
     override suspend fun readAllRecords(): List<Launch> {
@@ -24,7 +22,7 @@ abstract class DbCommonImpl: Db {
         CoroutineScope(Dispatchers.Default).launch {
             val sqlDriver=createDriver()
             mutableSqlDriver.value =sqlDriver
-            appDb=AppDb(sqlDriver)
+            appDb= AppDb(sqlDriver)
         }
     }
 
