@@ -1,9 +1,9 @@
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.CanvasBasedWindow
-import cleanArchitecturePlusSOLID.Presentation.PresentationImpl
-import cleanArchitecturePlusSOLID.data.RepositoryPlatformImpl
-import cleanArchitecturePlusSOLID.domain.InteractorImpl
+import cleanArchitecturePlusSOLID.layerPresentation.PresentationImpl
+import cleanArchitecturePlusSOLID.layerData.Repository.RepositoryPlatformImpl
+import cleanArchitecturePlusSOLID.layerDomain.InteractorImpl
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {

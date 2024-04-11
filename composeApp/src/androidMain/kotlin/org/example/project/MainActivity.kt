@@ -1,8 +1,8 @@
 package org.example.project
 
 import App
-import cleanArchitecturePlusSOLID.Presentation.PresentationImpl
-import cleanArchitecturePlusSOLID.data.RepositoryPlatformImpl
+import cleanArchitecturePlusSOLID.layerPresentation.PresentationImpl
+import cleanArchitecturePlusSOLID.layerData.Repository.RepositoryPlatformImpl
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,9 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import cleanArchitecturePlusSOLID.domain.InteractorImpl
-import cleanArchitecturePlusSOLID.domain.entity.Links
-import cleanArchitecturePlusSOLID.domain.entity.RocketLaunch
+import cleanArchitecturePlusSOLID.layerDomain.InteractorImpl
+import cleanArchitecturePlusSOLID.layerDomain.entity.Links
+import cleanArchitecturePlusSOLID.layerDomain.entity.RocketLaunch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
