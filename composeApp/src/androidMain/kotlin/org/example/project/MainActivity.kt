@@ -1,7 +1,7 @@
 package org.example.project
 
 import App
-import cleanArchitecturePlusSOLID.layerPresentation.PresentationImpl
+import cleanArchitecturePlusSOLID.layerPresentation.Presentation
 import cleanArchitecturePlusSOLID.layerData.Repository.RepositoryPlatformImpl
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,9 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import cleanArchitecturePlusSOLID.layerDomain.InteractorImpl
+import cleanArchitecturePlusSOLID.layerData.Boundaries
+import cleanArchitecturePlusSOLID.layerDomain.Interactor
 import cleanArchitecturePlusSOLID.layerDomain.entity.Links
 import cleanArchitecturePlusSOLID.layerDomain.entity.RocketLaunch
+import com.example.Launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,15 +24,18 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val presentation=
-                remember { PresentationImpl() }
+                remember { Presentation() }
 
             val repository=
                 remember {
                     RepositoryPlatformImpl(this)
                 }
-
+            val boundaries=
+                remember {
+                    Boundaries(repository)
+                }
             val interactor=
-                remember { InteractorImpl(presentation, repository) }
+                remember { Interactor(presentation, boundaries) }
 
             App(interactor,presentation)
 
@@ -46,15 +51,17 @@ fun AppAndroidPreview() {
         LocalContext.current
 
     val presentation=
-        remember { PresentationImpl().apply {
+        remember { Presentation().apply {
             mutableRocketLaunches.value= listOf(
-                RocketLaunch(
+                Launch(
                     flightNumber = 0,
                     missionName = "dfd",
                     details = "sdsd",
-                    launchSuccess = true,
+                    launchSuccess = null,
                     launchDateUTC = "2006-03-24T22:30:00.000Z",
-                    links = Links(null,null)
+                    null,
+                    null,
+                    null,
                 )
             )
 
@@ -64,9 +71,14 @@ fun AppAndroidPreview() {
             RepositoryPlatformImpl(context)
         }
 
+        val boundaries=
+            remember {
+                Boundaries(repository)
+            }
+
     val interactor=
         remember {
-            InteractorImpl(presentation, repository)
+            Interactor(presentation, boundaries)
         }
     App(interactor,presentation)
 

@@ -67,12 +67,19 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(projects.shared)
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.core)
+            implementation(libs.media.kamel)
+//            api("io.github.qdsfdhvh:image-loader:1.7.8")
+//            api("io.github.qdsfdhvh:image-loader-extension-moko-resources:1.7.8")
+            //api("io.github.qdsfdhvh:image-loader-extension-blur:1.7.8")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
 
-        val jsMain by getting {}
+        val jsMain by getting {
+
+        }
 
         //task("jsTestClasses"){}
     }
