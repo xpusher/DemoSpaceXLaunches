@@ -12,15 +12,16 @@ kotlin {
     js {
         moduleName = "composeApp"
         browser {
-//            commonWebpackConfig {
-//                outputFileName = "composeApp.js"
+            commonWebpackConfig {
+                outputFileName = "composeApp.js"
 //                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
 //                    static = (static ?: mutableListOf()).apply {
 //                        // Serve sources to debug inside browser
 //                        add(project.projectDir.path)
 //                    }
 //                }
-//            }
+            }
+
         }
         binaries.executable()
     }
@@ -68,6 +69,7 @@ kotlin {
             implementation(projects.shared)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
             implementation(libs.media.kamel)
 //            api("io.github.qdsfdhvh:image-loader:1.7.8")
 //            api("io.github.qdsfdhvh:image-loader-extension-moko-resources:1.7.8")
@@ -77,6 +79,9 @@ kotlin {
             implementation(compose.desktop.currentOs)
         }
 
+        jsMain.dependencies {
+            implementation(libs.ktor.client.js)
+        }
         val jsMain by getting {
 
         }

@@ -81,6 +81,7 @@ kotlin {
             //npm install copy-webpack-plugin --save-dev
             implementation(npm("@cashapp/sqldelight-sqljs-worker", "2.0.1"))
             implementation(npm("sql.js", "1.8.0"))
+            implementation(libs.ktor.client.js)
         }
         jvmMain.dependencies {
             implementation(libs.sqldelight.sqlite)

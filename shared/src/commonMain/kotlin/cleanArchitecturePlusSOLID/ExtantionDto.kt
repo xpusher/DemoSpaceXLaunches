@@ -1,6 +1,7 @@
 package cleanArchitecturePlusSOLID
 
 import cleanArchitecturePlusSOLID.layerDomain.entity.RocketLaunch
+import cleanArchitecturePlusSOLID.layerPresentation.LaunchPresentation
 import com.example.Launch
 
 fun RocketLaunch.toLaunch():Launch{
@@ -13,5 +14,19 @@ fun RocketLaunch.toLaunch():Launch{
         links.patch?.small,
         links.patch?.large,
         links.article,
+    )
+}
+
+fun Launch.toLaunchPresentation():LaunchPresentation{
+    return LaunchPresentation(
+        flightNumber,
+        missionName,
+        "$details",
+        launchSuccess==1L,
+        launchDateUTC,
+        "$patchUrlSmall",
+        "$patchUrlLarge",
+        "$articleUrl"
+
     )
 }
