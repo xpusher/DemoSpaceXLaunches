@@ -32,16 +32,15 @@ import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.compose_multiplatform
 import kotlinproject.composeapp.generated.resources.launch_details
 import kotlinproject.composeapp.generated.resources.launch_name
-import kotlinproject.composeapp.generated.resources.launch_success
 import kotlinproject.composeapp.generated.resources.launch_year
 import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.stringResource
+
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 @Preview
 fun App(interactor: Interactor, presentation: Presentation) {
-
     AppTheme {
         Surface(color = Color.LightGray, modifier = Modifier.fillMaxSize()) {
             var showContent by remember { mutableStateOf(false) }
@@ -68,8 +67,10 @@ fun App(interactor: Interactor, presentation: Presentation) {
                                     Row {
                                         Text(text = "${stringResource(Res.string.launch_name)}${temp[it].missionName}")
                                     }
-                                    Row {
-                                        Text(text = "${stringResource(Res.string.launch_success)}${temp[it].launchSuccess}")
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Text(
+                                            text = textBoolPresentation(temp[it].launchSuccess),
+                                            style = textStyleBoolColorPresentation(temp[it].launchSuccess))
                                     }
                                     Row {
                                         Text(text = "${stringResource(Res.string.launch_year)}${temp[it].launchDateUTC}")
@@ -124,6 +125,7 @@ fun App(interactor: Interactor, presentation: Presentation) {
         }
 
     }
+
 }
 
 
