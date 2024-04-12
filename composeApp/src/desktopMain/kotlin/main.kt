@@ -7,7 +7,7 @@ import cleanArchitecture.layerData.Boundaries
 import cleanArchitecture.layerPresentation.Presentation
 import cleanArchitecture.layerData.Repository.RepositoryPlatformImpl
 import cleanArchitecture.layerDomain.Interactor
-import cleanArchitecture.layerPresentation.LaunchPresentation
+import cleanArchitecture.layerDomain.entity.LaunchPresentation
 import com.example.Launch
 
 fun main() = application {

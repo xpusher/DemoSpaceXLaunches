@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 interface Db {
     val mutableSqlDriver: MutableStateFlow<SqlDriver?>
     suspend fun createDriver(): SqlDriver
-    suspend fun readAllRecords():List<Launch>
+    suspend fun selectAllLaunchesInfo():List<Launch>
+    suspend fun insertLaunch(launch:Launch)
+    suspend fun removeAllLaunches()
 
 }

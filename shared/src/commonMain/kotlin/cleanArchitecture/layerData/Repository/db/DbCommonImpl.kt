@@ -14,10 +14,26 @@ abstract class DbCommonImpl: Db {
     private lateinit var appDb: AppDb
 
     override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
-    override suspend fun readAllRecords(): List<Launch> {
+    override suspend fun selectAllLaunchesInfo(): List<Launch> {
         return appDb.appDbQueries.selectAllLaunchesInfo().awaitAsList()
     }
+    override suspend fun insertLaunch(launch: Launch) {
+        appDb.appDbQueries.insertLaunch(
+            flightNumber = launch.flightNumber,
+            missionName = launch.missionName,
+            details = launch.details,
+            launchSuccess = launch.launchSuccess,
+            launchDateUTC = launch.launchDateUTC,
+            patchUrlSmall = launch.patchUrlSmall,
+            patchUrlLarge = launch.patchUrlLarge,
+            articleUrl = launch.articleUrl
 
+        )
+    }
+
+    override suspend fun removeAllLaunches() {
+        appDb.appDbQueries.removeAllLaunches()
+    }
     init {
         CoroutineScope(Dispatchers.Default).launch {
             val sqlDriver=createDriver()

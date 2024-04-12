@@ -1,10 +1,10 @@
 package cleanArchitecture
 
-import cleanArchitecture.layerDomain.entity.RocketLaunch
-import cleanArchitecture.layerPresentation.LaunchPresentation
+import cleanArchitecture.layerDomain.entity.LaunchNetwork
+import cleanArchitecture.layerDomain.entity.LaunchPresentation
 import com.example.Launch
 
-fun RocketLaunch.toLaunch():Launch{
+fun LaunchNetwork.toLaunch():Launch{
     return Launch(
         flightNumber.toLong(),
         missionName,

@@ -1,9 +1,9 @@
 package cleanArchitecture.layerData.Repository.network
 
-import cleanArchitecture.layerDomain.entity.RocketLaunch
+import cleanArchitecture.layerDomain.entity.LaunchNetwork
 
 interface Network {
     val url:String
-    suspend fun testRequest():List<RocketLaunch>
+    suspend fun requestLaunches():List<LaunchNetwork>
 
 }

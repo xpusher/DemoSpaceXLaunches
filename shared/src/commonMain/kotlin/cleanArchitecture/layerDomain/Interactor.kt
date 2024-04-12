@@ -1,9 +1,9 @@
 package cleanArchitecture.layerDomain
 
 import cleanArchitecture.layerData.Boundaries
+import cleanArchitecture.layerDomain.entity.LaunchPresentation
 import cleanArchitecture.layerPresentation.Presentation
 import cleanArchitecture.layerDomain.usecase.UserActions
-import cleanArchitecture.layerPresentation.LaunchPresentation
 import cleanArchitecture.toLaunchPresentation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
