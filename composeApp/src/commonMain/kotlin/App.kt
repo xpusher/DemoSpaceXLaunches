@@ -22,8 +22,8 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import cleanArchitecturePlusSOLID.layerPresentation.Presentation
-import cleanArchitecturePlusSOLID.layerDomain.Interactor
+import cleanArchitecture.layerPresentation.Presentation
+import cleanArchitecture.layerDomain.Interactor
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -40,7 +40,7 @@ import org.jetbrains.compose.resources.stringResource
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 @Preview
-fun App(interactor: Interactor,presentation:Presentation) {
+fun App(interactor: Interactor, presentation: Presentation) {
 
     AppTheme {
         Surface(color = Color.LightGray, modifier = Modifier.fillMaxSize()) {

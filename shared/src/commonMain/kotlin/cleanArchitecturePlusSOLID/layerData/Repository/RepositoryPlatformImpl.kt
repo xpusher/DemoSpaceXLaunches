@@ -1,3 +1,0 @@
-package cleanArchitecturePlusSOLID.layerData.Repository
-
-expect class RepositoryPlatformImpl: Repository

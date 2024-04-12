@@ -1,0 +1,3 @@
+package cleanArchitecture.layerData.Repository
+
+expect class RepositoryPlatformImpl: Repository

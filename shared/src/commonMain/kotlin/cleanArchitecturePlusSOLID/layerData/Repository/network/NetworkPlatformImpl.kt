@@ -1,3 +1,0 @@
-package cleanArchitecturePlusSOLID.layerData.Repository.network
-
-expect class NetworkPlatformImpl: NetworkCommonImpl

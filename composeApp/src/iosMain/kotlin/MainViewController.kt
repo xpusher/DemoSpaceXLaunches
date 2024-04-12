@@ -1,9 +1,9 @@
 import androidx.compose.runtime.remember
 import androidx.compose.ui.window.ComposeUIViewController
-import cleanArchitecturePlusSOLID.layerData.Boundaries
-import cleanArchitecturePlusSOLID.layerPresentation.Presentation
-import cleanArchitecturePlusSOLID.layerData.Repository.RepositoryPlatformImpl
-import cleanArchitecturePlusSOLID.layerDomain.Interactor
+import cleanArchitecture.layerData.Boundaries
+import cleanArchitecture.layerPresentation.Presentation
+import cleanArchitecture.layerData.Repository.RepositoryPlatformImpl
+import cleanArchitecture.layerDomain.Interactor
 
 fun MainViewController() = ComposeUIViewController {
 

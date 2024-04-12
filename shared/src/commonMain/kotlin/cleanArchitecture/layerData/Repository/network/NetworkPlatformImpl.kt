@@ -1,0 +1,3 @@
+package cleanArchitecture.layerData.Repository.network
+
+expect class NetworkPlatformImpl: NetworkCommonImpl
