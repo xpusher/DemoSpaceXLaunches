@@ -5,6 +5,7 @@ import android.content.Context
 import app.cash.sqldelight.async.coroutines.synchronous
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import cleanArchitecture.layerData.Repository.db.DbCommonImpl
 import com.example.project.AppDb
 
 actual class DbPlatformImpl(private val context: Context): DbCommonImpl() {

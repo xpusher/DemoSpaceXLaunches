@@ -1,4 +1,4 @@
-package cleanArchitecturePlusSOLID.layerData.Repository.network
+package cleanArchitecture.layerData.Repository.network
 
 import cleanArchitecture.layerData.Repository.network.NetworkCommonImpl
 

@@ -1,7 +1,6 @@
-package cleanArchitecturePlusSOLID.layerData.Repository
+package cleanArchitecture.layerData.Repository
 
 import android.content.Context
-import cleanArchitecture.layerData.Repository.Repository
 import cleanArchitecture.layerData.Repository.db.Db
 import cleanArchitecture.layerData.Repository.db.DbPlatformImpl
 import cleanArchitecture.layerData.Repository.network.NetworkPlatformImpl

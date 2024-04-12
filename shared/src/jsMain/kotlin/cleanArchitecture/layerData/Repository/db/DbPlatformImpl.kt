@@ -2,7 +2,6 @@ package cleanArchitecture.layerData.Repository.db
 
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.worker.WebWorkerDriver
-import cleanArchitecture.layerData.Repository.db.DbCommonImpl
 import com.example.project.AppDb
 import org.w3c.dom.Worker
 

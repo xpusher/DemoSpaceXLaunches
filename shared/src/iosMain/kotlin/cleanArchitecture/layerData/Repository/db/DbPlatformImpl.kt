@@ -4,7 +4,6 @@ import DB_NAME_FILE
 import app.cash.sqldelight.async.coroutines.synchronous
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
-import cleanArchitecture.layerData.Repository.db.DbCommonImpl
 import com.example.project.AppDb
 
 actual class DbPlatformImpl: DbCommonImpl() {
