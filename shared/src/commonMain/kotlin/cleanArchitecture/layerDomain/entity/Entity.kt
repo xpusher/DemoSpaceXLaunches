@@ -15,6 +15,7 @@ public data class LaunchPresentation(
     public val patchUrlSmall: String,
     public val patchUrlLarge: String,
     public val articleUrl: String,
+    public val timestamp: String,
 )
 
 @Serializable

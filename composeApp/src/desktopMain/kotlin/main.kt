@@ -8,7 +8,9 @@ import cleanArchitecture.layerPresentation.Presentation
 import cleanArchitecture.layerData.Repository.RepositoryPlatformImpl
 import cleanArchitecture.layerDomain.Interactor
 import cleanArchitecture.layerDomain.entity.LaunchPresentation
+import cleanArchitecture.nowUTC
 import com.example.Launch
+import kotlinx.datetime.LocalDateTime
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication, title = "KotlinProject") {
@@ -38,7 +40,8 @@ fun AppAndroidPreview() {
 
     val presentation=
         remember { Presentation().apply {
-            mutableLaunchesPresentation.value = ArrayList<LaunchPresentation>()
+            mutableLaunchesPresentation.value =
+                ArrayList<LaunchPresentation>()
                 .apply {
                     repeat(3) {
                         add(
@@ -51,6 +54,7 @@ fun AppAndroidPreview() {
                                 "null",
                                 "null",
                                 "null",
+                                timestamp = LocalDateTime.nowUTC().toString()
                             )
                         )
                     }

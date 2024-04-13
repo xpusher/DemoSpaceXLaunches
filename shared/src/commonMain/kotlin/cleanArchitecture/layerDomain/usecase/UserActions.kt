@@ -4,7 +4,8 @@ interface UserActions: TestSimpleButtonClick {
 
 }
 interface TestSimpleButtonClick{
-    fun click()
+    fun updateLaunches()
+    fun loadLaunches()
 }
 
 

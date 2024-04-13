@@ -16,18 +16,33 @@ class Interactor(
 ) {
     val userActions = object : UserActions {
 
-        override fun click() {
+        override fun updateLaunches() {
 
             CoroutineScope(Dispatchers.Unconfined + Job())
                 .launch {
 
-                    presentation.mutableLaunchesPresentation.value=
-                        ArrayList<LaunchPresentation>()
-                            .apply {
-                                boundaries.testRequest().forEach { add(it.toLaunchPresentation()) }
-                            }
+                    presentation.mutableLaunchesPresentation.value=null
+
+                    boundaries.clearDb()
+
+                    loadLaunches()
+
                 }
 
+        }
+
+        override fun loadLaunches() {
+            CoroutineScope(Dispatchers.Unconfined + Job())
+                .launch {
+
+                    presentation.mutableLaunchesPresentation.value =
+                        ArrayList<LaunchPresentation>()
+                            .apply {
+                                boundaries.requestLaunches().forEach {
+                                    add(it.toLaunchPresentation())
+                                }
+                            }
+                }
         }
     }
 }

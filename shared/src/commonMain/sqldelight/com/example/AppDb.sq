@@ -6,12 +6,13 @@ CREATE TABLE IF NOT EXISTS Launch (
     launchDateUTC TEXT NOT NULL,
     patchUrlSmall TEXT,
     patchUrlLarge TEXT,
-    articleUrl TEXT
+    articleUrl TEXT,
+    timestamp TEXT NOT NULL
 );
 
 insertLaunch:
-INSERT INTO Launch(flightNumber, missionName, details, launchSuccess, launchDateUTC, patchUrlSmall, patchUrlLarge, articleUrl)
-VALUES(?, ?, ?, ?, ?, ?, ?, ?);
+INSERT INTO Launch(flightNumber, missionName, details, launchSuccess, launchDateUTC, patchUrlSmall, patchUrlLarge, articleUrl, timestamp)
+VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 removeAllLaunches:
 DELETE FROM Launch;

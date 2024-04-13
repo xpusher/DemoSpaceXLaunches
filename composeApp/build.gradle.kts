@@ -71,9 +71,7 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.logging)
             implementation(libs.media.kamel)
-//            api("io.github.qdsfdhvh:image-loader:1.7.8")
-//            api("io.github.qdsfdhvh:image-loader-extension-moko-resources:1.7.8")
-            //api("io.github.qdsfdhvh:image-loader-extension-blur:1.7.8")
+            implementation(libs.kotlinx.datetime)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
