@@ -4,6 +4,7 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -48,12 +48,14 @@ import kotlinproject.composeapp.generated.resources.launch_details
 import kotlinproject.composeapp.generated.resources.launch_name
 import kotlinproject.composeapp.generated.resources.launch_year
 import kotlinproject.composeapp.generated.resources.launches_title
-import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.stringResource
+import androidx.compose.foundation.lazy.items
+import cleanArchitecture.layerDomain.entity.LaunchPresentation
+import com.example.Launch
 
-
-@OptIn(ExperimentalResourceApi::class)
+data class Book(val id: String)
+@OptIn(ExperimentalResourceApi::class, ExperimentalFoundationApi::class)
 @Composable
 @Preview
 fun App(interactor: Interactor, presentation: Presentation) {
@@ -64,10 +66,8 @@ fun App(interactor: Interactor, presentation: Presentation) {
 
             var currentRotation by remember { mutableStateOf(0f) }
 
-            val launchesPresentation =
-                presentation.mutableLaunchesPresentation.collectAsState()
-
-            var numberItemRemove by remember { mutableStateOf<Int?>(null) }
+            val launches by
+                 presentation.mutableLaunchesPresentation.collectAsState()
 
             Column(Modifier.padding(6.dp).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
 
@@ -83,9 +83,9 @@ fun App(interactor: Interactor, presentation: Presentation) {
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.End,
                         modifier = Modifier.fillMaxWidth()) {
-                        if(launchesPresentation.value?.isNotEmpty()==true){
+                        if(launches?.isNotEmpty()==true){
                             Text(
-                                text = LocalDateTime.toPresentationFromUTC(LocalDateTime.parse(launchesPresentation.value!![0].timestamp)),
+                                text = LocalDateTime.toPresentationFromUTC(LocalDateTime.parse(launches!![0].timestamp)),
                                 fontSize = 12.sp)
                         }
                         Icon(
@@ -100,8 +100,8 @@ fun App(interactor: Interactor, presentation: Presentation) {
 
                 }
 
-                when{
-                    launchesPresentation.value==null->{
+                when(launches?.size){
+                    null->{
 
                         showProgress=true
                         val rotation = remember { Animatable(currentRotation) }
@@ -128,107 +128,78 @@ fun App(interactor: Interactor, presentation: Presentation) {
                         }
 
                     }
-                    launchesPresentation.value?.isEmpty()==true->{
+                    0->{
                         showUpdateView()
                         showProgress=false
                     }
                     else->{
                         showUpdateView()
                         showProgress=false
-                        val listState = rememberLazyListState()
-                        val coroutineScope = rememberCoroutineScope()
-                        LazyColumn(Modifier.fillMaxWidth(), state = listState) {
+                        LazyColumn(Modifier.fillMaxWidth()) {
+                            launches?.let {launches->
+                                items(launches,key={it.flightNumber}) { launch->
+                                    Row(Modifier.fillMaxWidth().animateItemPlacement(tween(durationMillis = 500))) {
+                                        Card(modifier = Modifier
+                                            .padding(bottom = 2.dp)
+                                            .fillMaxWidth()) {
+                                            Column(modifier = Modifier.padding(10.dp)) {
+                                                Row(
+                                                    horizontalArrangement = Arrangement.End,
+                                                    modifier = Modifier.fillMaxWidth()) {
+                                                    Icon(
+                                                        Icons.Filled.Close,
+                                                        "",
+                                                        modifier = Modifier.clickable {
+                                                            interactor.userActions.removeLaunches(launch.flightNumber)
+                                                        })
+                                                }
+                                                Row {
+                                                    Text(text = "${stringResource(Res.string.launch_name)}${launch.missionName}")
+                                                }
+                                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                                    Text(
+                                                        text = textBoolPresentation(launch.launchSuccess),
+                                                        style = textStyleBoolColorPresentation(launch.launchSuccess))
+                                                }
+                                                Row {
+                                                    Text(text = "${stringResource(Res.string.launch_year)}${launch.launchDateUTC}")
+                                                }
+                                                Row {
+                                                    Text(text = "${stringResource(Res.string.launch_details)}${launch.details}")
+                                                }
+                                                Row(
+                                                    horizontalArrangement = Arrangement.End,
+                                                    modifier = Modifier.fillMaxWidth()) {
+                                                    var openUri by remember { mutableStateOf(false) }
 
-                            launchesPresentation.value?.let {launchesPresentation->
+                                                    if (openUri) {
 
-                                items(launchesPresentation.size) {
-
-                                    if (!launchesPresentation[it].visible.targetState && !launchesPresentation[it].visible.currentState){
-                                        interactor.userActions.removeLaunches(launchesPresentation[it].flightNumber)
-                                        numberItemRemove=it
-                                    }
-
-                                    AnimatedVisibility(
-                                        label = launchesPresentation[it].flightNumber.toString(),
-                                        visibleState = launchesPresentation[it].visible,
-//                                        enter= expandVertically(animationSpec = tween(500)),
-//                                        exit = shrinkVertically(animationSpec = tween(500))
-                                    ){
-
-                                        Row(Modifier.fillMaxWidth()) {
-
-                                            Card(modifier = Modifier
-                                                .padding(bottom = 2.dp)
-                                                .fillMaxWidth()) {
-
-                                                Column(modifier = Modifier.padding(10.dp)) {
-                                                    Row(
-                                                        horizontalArrangement = Arrangement.End,
-                                                        modifier = Modifier.fillMaxWidth()) {
-
-                                                        Icon(
-                                                            Icons.Filled.Close,
-                                                            "",
-                                                            modifier = Modifier.clickable {
-                                                                launchesPresentation[it].visible.targetState=false
-                                                            })
-                                                    }
-                                                    Row {
-                                                        Text(text = "${stringResource(Res.string.launch_name)}${launchesPresentation[it].missionName}")
-                                                    }
-                                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                                        Text(
-                                                            text = textBoolPresentation(launchesPresentation[it].launchSuccess),
-                                                            style = textStyleBoolColorPresentation(launchesPresentation[it].launchSuccess))
-                                                    }
-                                                    Row {
-                                                        Text(text = "${stringResource(Res.string.launch_year)}${launchesPresentation[it].launchDateUTC}")
-                                                    }
-                                                    Row {
-                                                        Text(text = "${stringResource(Res.string.launch_details)}${launchesPresentation[it].details}")
-                                                    }
-                                                    Row(
-                                                        horizontalArrangement = Arrangement.End,
-                                                        modifier = Modifier.fillMaxWidth()) {
-                                                        var openUri by remember { mutableStateOf(false) }
-
-                                                        if (openUri) {
-
-                                                            listOf(
-                                                                launchesPresentation[it].articleUrl,
-                                                                launchesPresentation[it].patchUrlLarge,
-                                                                launchesPresentation[it].patchUrlSmall,
-                                                            )
-                                                                .forEach { stringLink->
-                                                                    LocalUriHandler.current.openUri(stringLink)
-                                                                }
-                                                            openUri=false
-                                                        }
-
-                                                        ClickableText(
-                                                            text = buildAnnotatedString {
-                                                                withStyle(style = SpanStyle(color = MaterialTheme.colors.primary)) {
-                                                                    append("More...")
-                                                                }
-                                                            },
-                                                            onClick = {openUri=true},
+                                                        listOf(
+                                                            launch.articleUrl,
+                                                            launch.patchUrlLarge,
+                                                            launch.patchUrlSmall,
                                                         )
+                                                            .forEach { stringLink->
+                                                                LocalUriHandler.current.openUri(stringLink)
+                                                            }
+                                                        openUri=false
                                                     }
+
+                                                    ClickableText(
+                                                        text = buildAnnotatedString {
+                                                            withStyle(style = SpanStyle(color = MaterialTheme.colors.primary)) {
+                                                                append("More...")
+                                                            }
+                                                        },
+                                                        onClick = {openUri=true},
+                                                    )
                                                 }
                                             }
                                         }
                                     }
-
                                 }
                             }
 
-                        }
-                        if (numberItemRemove==0)
-                        {
-                            coroutineScope.launch {
-                                listState.scrollToItem(0)
-                            }
-                            numberItemRemove=null
                         }
                     }
                 }
