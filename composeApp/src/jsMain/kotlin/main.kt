@@ -39,44 +39,7 @@ fun main() {
                 svgDecoder()
                 fileFetcher()
                 httpFetcher {
-                    // httpCache is defined in kamel-core and configures the ktor client
-                    // to install a HttpCache feature with the implementation provided by Kamel.
-                    // The size of the cache can be defined in Bytes.
-//                    httpCache(10 * 1024 * 1024  /* 10 MiB */)
-
-                    defaultRequest {
-
-//                        url("https://www.example.com/")
-//                        cacheControl(CacheControl.MaxAge(maxAgeSeconds = 10000))
-                        //headers["Access-Control-Allow-Origin"] = "*"
-//                        headers["Accept"] = "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
-//                        headers["Host"] = "images2.imgbox.com"
-//                        headers["Sec-Fetch-Mode"] = "no-cors"
-//                        headers["Sec-Fetch-Site"] = "cross-site"
-//                        headers["Sec-Fetch-Dest"] = "image"
-
-//                        headers["Access-Control-Allow-Origin"] = "*"
-//                        headers["Access-Control-Allow-Methods"] = "*"
-//                        headers["Access-Control-Allow-Headers"] = "*"
-//                        headers["QQQQ"] = "qq"
-//                        headers["Sec-Fetch-Mode"] = "no-cors"
-//                        headers["Sec-Fetch-Site"] = "cross-site"
-//                        headers["Sec-Fetch-Dest"] = "image"
-
-                    }
-
-//                    install(HttpRequestRetry) {
-//                        maxRetries = 3
-//                        retryIf { httpRequest, httpResponse ->
-//                            !httpResponse.status.isSuccess()
-//                        }
-//                    }
-
-                    // Requires adding "io.ktor:ktor-client-logging:$ktor_version"
-                    Logging {
-                        level = io.ktor.client.plugins.logging.LogLevel.INFO
-                        logger = Logger.SIMPLE
-                    }
+                    defaultRequest {}
                 }
             }){
             val presentation=

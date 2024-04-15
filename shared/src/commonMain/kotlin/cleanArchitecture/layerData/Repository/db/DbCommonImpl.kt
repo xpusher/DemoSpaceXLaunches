@@ -1,6 +1,7 @@
 package cleanArchitecture.layerData.Repository.db
 
 import app.cash.sqldelight.async.coroutines.awaitAsList
+import app.cash.sqldelight.db.QueryResult
 import app.cash.sqldelight.db.SqlDriver
 import com.example.Launch
 import com.example.project.AppDb
@@ -33,6 +34,7 @@ abstract class DbCommonImpl: Db {
     override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
     override suspend fun selectAllLaunchesInfo(): List<Launch> {
         waitDb()
+        appDb.appDbQueries.selectAllLaunchesInfo()
         return appDb.appDbQueries.selectAllLaunchesInfo().awaitAsList()
     }
     override suspend fun insertLaunch(launch: Launch) {
@@ -53,6 +55,11 @@ abstract class DbCommonImpl: Db {
     override suspend fun removeAllLaunches() {
         waitDb()
         appDb.appDbQueries.removeAllLaunches()
+    }
+
+    override suspend fun removeLaunchesByFlightNumber(flightNumber: Long) {
+        waitDb()
+        appDb.appDbQueries.removeLaunchesByFlightNumber(listOf(flightNumber))
     }
     init {
 

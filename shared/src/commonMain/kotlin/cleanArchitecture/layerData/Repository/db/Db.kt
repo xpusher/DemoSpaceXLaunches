@@ -10,5 +10,6 @@ interface Db {
     suspend fun selectAllLaunchesInfo():List<Launch>
     suspend fun insertLaunch(launch:Launch)
     suspend fun removeAllLaunches()
+    suspend fun removeLaunchesByFlightNumber(flightNumber:Long)
 
 }

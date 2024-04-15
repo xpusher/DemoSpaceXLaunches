@@ -1,11 +1,12 @@
 package cleanArchitecture.layerDomain.usecase
 
-interface UserActions: TestSimpleButtonClick {
+interface UserActions: DbActions {
 
 }
-interface TestSimpleButtonClick{
-    fun updateLaunches()
-    fun loadLaunches()
+interface DbActions{
+    fun hardUpdateLaunches()
+    fun softUpdateLaunches()
+    fun removeLaunches(flightNumber:Long)
 }
 
 

@@ -9,6 +9,6 @@ class Presentation{
         MutableStateFlow("00000000000")
 
      var mutableLaunchesPresentation=
-        MutableStateFlow<List<LaunchPresentation>?>(null)
+        MutableStateFlow<ArrayList<LaunchPresentation>?>(null)
 
 }

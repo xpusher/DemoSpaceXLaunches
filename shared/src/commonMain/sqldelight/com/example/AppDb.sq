@@ -17,6 +17,9 @@ VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
 removeAllLaunches:
 DELETE FROM Launch;
 
+removeLaunchesByFlightNumber:
+DELETE FROM Launch WHERE flightNumber IN :flightNumber;
+
 selectAllLaunchesInfo:
 SELECT Launch.*
 FROM Launch;

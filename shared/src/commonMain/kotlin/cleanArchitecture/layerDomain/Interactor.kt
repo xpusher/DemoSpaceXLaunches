@@ -16,33 +16,59 @@ class Interactor(
 ) {
     val userActions = object : UserActions {
 
-        override fun updateLaunches() {
+        override fun hardUpdateLaunches() {
 
             CoroutineScope(Dispatchers.Unconfined + Job())
                 .launch {
 
                     presentation.mutableLaunchesPresentation.value=null
 
-                    boundaries.clearDb()
+                    boundaries.dbClearLaunches()
 
-                    loadLaunches()
+                    softUpdateLaunches()
 
                 }
 
         }
 
-        override fun loadLaunches() {
+        override fun softUpdateLaunches() {
             CoroutineScope(Dispatchers.Unconfined + Job())
                 .launch {
 
-                    presentation.mutableLaunchesPresentation.value =
+                    val dbLaunches=ArrayList(
+                        boundaries.dbLoadLaunches())
+
+                    if (dbLaunches.isEmpty())
+                        boundaries.networkRequestLaunches().onEach {
+                            boundaries.dbInsertLaunch(it)
+                            dbLaunches.add(it)
+                        }
+
+                    presentation.mutableLaunchesPresentation.emit(
                         ArrayList<LaunchPresentation>()
                             .apply {
-                                boundaries.requestLaunches().forEach {
+                                dbLaunches.forEach {
                                     add(it.toLaunchPresentation())
                                 }
                             }
+                    )
+
                 }
         }
+
+        override fun removeLaunches(flightNumber: Long) {
+            CoroutineScope(Dispatchers.Unconfined + Job())
+                .launch {
+
+                    boundaries.dbRemoveLaunchesByFlightNumber(flightNumber)
+
+                    softUpdateLaunches()
+                }
+        }
+
+    }
+
+    init {
+        userActions.softUpdateLaunches()
     }
 }

@@ -7,29 +7,32 @@ import com.example.Launch
 import kotlinx.datetime.LocalDateTime
 
 class Boundaries(private val repository: Repository) {
-    suspend fun requestLaunches(): List<Launch> {
+    suspend fun networkRequestLaunches(): List<Launch> {
 
-        val db=repository.db
+        val launches=ArrayList<Launch>()
 
-        val launches=ArrayList(db.selectAllLaunchesInfo())
+        val timestamp=LocalDateTime.nowUTC()
 
+        val rocketLaunches = repository.network.requestLaunches()
 
-        if (launches.size==0) {
-            val timestamp=LocalDateTime.nowUTC()
-
-            val rocketLaunches = repository.network.requestLaunches()
-
-            rocketLaunches.forEach {
-                val launch = it.toLaunch(timestamp)
-                launches.add(launch)
-                db.insertLaunch(launch)
-            }
+        rocketLaunches.forEach {
+            launches.add(it.toLaunch(timestamp))
         }
+
         return launches
     }
-
-    suspend fun clearDb(){
+    suspend fun dbClearLaunches(){
         repository.db.removeAllLaunches()
+    }
+    suspend fun dbRemoveLaunchesByFlightNumber(flightNumber:Long){
+        repository.db.removeLaunchesByFlightNumber(flightNumber)
+    }
+    suspend fun dbLoadLaunches():List<Launch>{
+        return repository.db.selectAllLaunchesInfo()
+    }
+
+    suspend fun dbInsertLaunch(launch: Launch){
+        repository.db.insertLaunch(launch)
     }
 
 }
