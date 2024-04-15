@@ -61,7 +61,6 @@ class Interactor(
                 .launch {
 
                     boundaries.dbRemoveLaunchesByFlightNumber(flightNumber)
-
                     softUpdateLaunches()
                 }
         }

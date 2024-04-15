@@ -1,12 +1,9 @@
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -50,6 +48,7 @@ import kotlinproject.composeapp.generated.resources.launch_details
 import kotlinproject.composeapp.generated.resources.launch_name
 import kotlinproject.composeapp.generated.resources.launch_year
 import kotlinproject.composeapp.generated.resources.launches_title
+import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.stringResource
 
@@ -65,22 +64,11 @@ fun App(interactor: Interactor, presentation: Presentation) {
 
             var currentRotation by remember { mutableStateOf(0f) }
 
-            val rotation = remember { Animatable(currentRotation) }
-
             val launchesPresentation =
                 presentation.mutableLaunchesPresentation.collectAsState()
 
-            LaunchedEffect(showProgress){
-                rotation.animateTo(
-                    targetValue = currentRotation + 360f,
-                    animationSpec = infiniteRepeatable(
-                        animation = tween(3000, easing = LinearEasing),
-                        repeatMode = RepeatMode.Restart
-                    )
-                ) {
-                    currentRotation = value
-                }
-            }
+            var numberItemRemove by remember { mutableStateOf<Int?>(null) }
+
             Column(Modifier.padding(6.dp).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
 
                 Row {
@@ -116,6 +104,28 @@ fun App(interactor: Interactor, presentation: Presentation) {
                     launchesPresentation.value==null->{
 
                         showProgress=true
+                        val rotation = remember { Animatable(currentRotation) }
+                        LaunchedEffect(showProgress){
+                            rotation.animateTo(
+                                targetValue = currentRotation + 360f,
+                                animationSpec = infiniteRepeatable(
+                                    animation = tween(3000, easing = LinearEasing),
+                                    repeatMode = RepeatMode.Restart
+                                )
+                            ) {
+                                currentRotation = value
+                            }
+                        }
+                        AnimatedVisibility(showProgress) {
+                            val greeting = remember { Greeting().greet() }
+                            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                                Image(
+                                    painterResource(Res.drawable.compose_multiplatform),
+                                    null,
+                                    modifier = Modifier.rotate(currentRotation))
+                                Text("Compose: $greeting")
+                            }
+                        }
 
                     }
                     launchesPresentation.value?.isEmpty()==true->{
@@ -125,21 +135,26 @@ fun App(interactor: Interactor, presentation: Presentation) {
                     else->{
                         showUpdateView()
                         showProgress=false
-                        LazyColumn(Modifier.fillMaxWidth()) {
+                        val listState = rememberLazyListState()
+                        val coroutineScope = rememberCoroutineScope()
+                        LazyColumn(Modifier.fillMaxWidth(), state = listState) {
+
                             launchesPresentation.value?.let {launchesPresentation->
+
                                 items(launchesPresentation.size) {
 
-                                    val isVisible = remember { MutableTransitionState(true) }
-
-                                    if (!isVisible.targetState && !isVisible.currentState){
-//                                        isVisible.targetState=true
-//                                        interactor.userActions.removeLaunches(
-//                                            launchesPresentation[it].flightNumber)
+                                    if (!launchesPresentation[it].visible.targetState && !launchesPresentation[it].visible.currentState){
+                                        interactor.userActions.removeLaunches(launchesPresentation[it].flightNumber)
+                                        numberItemRemove=it
                                     }
-                                    AnimatedVisibility(isVisible,
-                                        enter= expandVertically(animationSpec = tween(0)),
-                                        exit = shrinkVertically(animationSpec = tween(500))
+
+                                    AnimatedVisibility(
+                                        label = launchesPresentation[it].flightNumber.toString(),
+                                        visibleState = launchesPresentation[it].visible,
+//                                        enter= expandVertically(animationSpec = tween(500)),
+//                                        exit = shrinkVertically(animationSpec = tween(500))
                                     ){
+
                                         Row(Modifier.fillMaxWidth()) {
 
                                             Card(modifier = Modifier
@@ -150,13 +165,12 @@ fun App(interactor: Interactor, presentation: Presentation) {
                                                     Row(
                                                         horizontalArrangement = Arrangement.End,
                                                         modifier = Modifier.fillMaxWidth()) {
+
                                                         Icon(
                                                             Icons.Filled.Close,
                                                             "",
                                                             modifier = Modifier.clickable {
-                                                                isVisible.targetState=false
-                                                                //interactor.userActions.initLaunches()
-                                                                interactor.userActions.removeLaunches(launchesPresentation[it].flightNumber)
+                                                                launchesPresentation[it].visible.targetState=false
                                                             })
                                                     }
                                                     Row {
@@ -207,18 +221,15 @@ fun App(interactor: Interactor, presentation: Presentation) {
 
                                 }
                             }
-                        }
-                    }
-                }
 
-                AnimatedVisibility(showProgress) {
-                    val greeting = remember { Greeting().greet() }
-                    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                        Image(
-                            painterResource(Res.drawable.compose_multiplatform),
-                            null,
-                            modifier = Modifier.rotate(currentRotation))
-                        Text("Compose: $greeting")
+                        }
+                        if (numberItemRemove==0)
+                        {
+                            coroutineScope.launch {
+                                listState.scrollToItem(0)
+                            }
+                            numberItemRemove=null
+                        }
                     }
                 }
 
