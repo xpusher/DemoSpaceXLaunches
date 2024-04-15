@@ -1,4 +1,9 @@
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,10 +24,12 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,6 +45,7 @@ import kotlinproject.composeapp.generated.resources.compose_multiplatform
 import kotlinproject.composeapp.generated.resources.launch_details
 import kotlinproject.composeapp.generated.resources.launch_name
 import kotlinproject.composeapp.generated.resources.launch_year
+import kotlinproject.composeapp.generated.resources.launches_title
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.stringResource
@@ -52,6 +60,9 @@ fun App(interactor: Interactor, presentation: Presentation) {
             var showProgress by remember {
                 mutableStateOf(false) }
 
+            var currentRotation by remember { mutableStateOf(0f) }
+            val rotation = remember { Animatable(currentRotation) }
+
             var launchesPresentation by remember {
                 mutableStateOf(presentation.mutableLaunchesPresentation.value) }
 
@@ -60,7 +71,24 @@ fun App(interactor: Interactor, presentation: Presentation) {
                     launchesPresentation=it
                 }
             }
+            LaunchedEffect(showProgress){
+                rotation.animateTo(
+                    targetValue = currentRotation + 360f,
+                    animationSpec = infiniteRepeatable(
+                        animation = tween(3000, easing = LinearEasing),
+                        repeatMode = RepeatMode.Restart
+                    )
+                ) {
+                    currentRotation = value
+                }
+            }
             Column(Modifier.padding(6.dp).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Row {
+                    Text(
+                        text= stringResource(Res.string.launches_title),
+                        textDecoration = TextDecoration.Underline)
+                }
+
                 @Composable
                 fun showUpdateView(){
                     Row(
@@ -83,6 +111,7 @@ fun App(interactor: Interactor, presentation: Presentation) {
                     }
 
                 }
+
                 when{
                     launchesPresentation==null->{
 
@@ -90,22 +119,14 @@ fun App(interactor: Interactor, presentation: Presentation) {
 
                         showProgress=true
 
-                        AnimatedVisibility(showProgress) {
-                            val greeting = remember { Greeting().greet() }
-                            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                                Image(painterResource(Res.drawable.compose_multiplatform), null)
-                                Text("Compose: $greeting")
-                            }
-                        }
-
                     }
                     launchesPresentation?.isEmpty()==true->{
                         showUpdateView()
-                        showProgress=true
+                        showProgress=false
                     }
                     else->{
                         showUpdateView()
-                        showProgress=true
+                        showProgress=false
                         LazyColumn(Modifier.fillMaxWidth()) {
                             launchesPresentation?.let {launchesPresentation->
                                 items(launchesPresentation.size) {
@@ -162,6 +183,16 @@ fun App(interactor: Interactor, presentation: Presentation) {
                     }
                 }
 
+                AnimatedVisibility(showProgress) {
+                    val greeting = remember { Greeting().greet() }
+                    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Image(
+                            painterResource(Res.drawable.compose_multiplatform),
+                            null,
+                            modifier = Modifier.rotate(currentRotation))
+                        Text("Compose: $greeting")
+                    }
+                }
 
             }
 
