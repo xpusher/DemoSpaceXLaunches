@@ -51,10 +51,7 @@ import kotlinproject.composeapp.generated.resources.launches_title
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.foundation.lazy.items
-import cleanArchitecture.layerDomain.entity.LaunchPresentation
-import com.example.Launch
 
-data class Book(val id: String)
 @OptIn(ExperimentalResourceApi::class, ExperimentalFoundationApi::class)
 @Composable
 @Preview

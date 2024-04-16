@@ -1,7 +1,5 @@
 package cleanArchitecture.layerDomain.entity
 
-import androidx.compose.animation.core.MutableTransitionState
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
@@ -18,7 +16,6 @@ public data class LaunchPresentation(
     public val patchUrlLarge: String,
     public val articleUrl: String,
     public val timestamp: String,
-    val visible: MutableTransitionState<Boolean> =MutableTransitionState(true)
 )
 
 @Serializable

@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqldelight)
-    alias(libs.plugins.jetbrainsCompose)
     kotlin("plugin.serialization") version "1.9.23"
 }
 sqldelight {
@@ -66,7 +65,6 @@ kotlin {
             implementation(libs.ktor.client.json)
             implementation(libs.ktor.client.serialization)
             implementation(libs.kotlinx.datetime)
-            implementation(compose.foundation)
         }
         androidMain.dependencies {
             implementation(libs.sqldelight.android)
