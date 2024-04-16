@@ -3,6 +3,7 @@ package cleanArchitecture.layerData.Repository.db
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.db.QueryResult
 import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.db.SqlSchema
 import com.example.Launch
 import com.example.project.AppDb
 import kotlinx.coroutines.CoroutineScope
@@ -13,6 +14,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.cancellable
@@ -63,8 +65,13 @@ abstract class DbCommonImpl: Db {
     }
     init {
 
-        CoroutineScope(Dispatchers.Default).launch {
-            val sqlDriver=createDriver()
+        CoroutineScope(Dispatchers.Unconfined).launch {
+
+
+
+            val sqlDriver=createDriver(AppDb.Schema)
+
+
             mutableSqlDriver.value =sqlDriver
             appDb= AppDb(sqlDriver)
             mutableAppDb.value=appDb

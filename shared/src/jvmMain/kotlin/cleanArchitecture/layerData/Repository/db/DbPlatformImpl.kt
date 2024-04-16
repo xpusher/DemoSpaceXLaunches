@@ -9,7 +9,7 @@ import com.example.project.AppDb
 
 actual class DbPlatformImpl: DbCommonImpl() {
 
-    actual override suspend fun createDriver(): SqlDriver {
+    actual override suspend fun createDriver(schema: SqlSchema<QueryResult.AsyncValue<Unit>>): SqlDriver {
         val sqlDriver= JdbcSqliteDriver(
             "jdbc:sqlite:file:$DB_NAME_FILE?cache=shared"
         )

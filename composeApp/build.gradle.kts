@@ -70,7 +70,6 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.logging)
-            implementation(libs.media.kamel)
             implementation(libs.kotlinx.datetime)
         }
         desktopMain.dependencies {
@@ -130,7 +129,9 @@ android {
         debugImplementation(libs.compose.ui.tooling)
     }
 }
-
+compose.experimental {
+    web.application {}
+}
 compose.desktop {
     application {
         mainClass = "MainKt"

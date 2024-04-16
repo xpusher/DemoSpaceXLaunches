@@ -99,7 +99,7 @@ fun App(interactor: Interactor, presentation: Presentation) {
 
                 when(launches?.size){
                     null->{
-
+                        Text("QQQQ")
                         showProgress=true
                         val rotation = remember { Animatable(currentRotation) }
                         LaunchedEffect(showProgress){
