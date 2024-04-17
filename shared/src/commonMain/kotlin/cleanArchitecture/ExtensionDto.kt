@@ -2,6 +2,7 @@ package cleanArchitecture
 
 import cleanArchitecture.layerDomain.entity.LaunchNetwork
 import cleanArchitecture.layerDomain.entity.LaunchPresentation
+import cleanArchitecture.layerDomain.entity.LaunchSerializable
 import com.example.Launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
@@ -18,7 +19,32 @@ fun LocalDateTime.Companion.toPresentationFromUTC(localDateTime: LocalDateTime):
         localDateTime.toInstant(TimeZone.UTC).toLocalDateTime(TimeZone.currentSystemDefault())
     return "${localDateTime.date} ${localDateTime.hour}:${localDateTime.minute}:${localDateTime.second}"
 }
-
+fun LaunchSerializable.toLaunch():Launch{
+    return Launch(
+        this.flightNumber,
+        this.missionName,
+        this.details,
+        this.launchSuccess,
+        this.launchDateUTC,
+        this.patchUrlSmall,
+        this.patchUrlLarge,
+        this.articleUrl,
+        this.timestamp,
+    )
+}
+fun Launch.toLaunchSerializable():LaunchSerializable{
+    return LaunchSerializable(
+        this.flightNumber,
+        this.missionName,
+        this.details,
+        this.launchSuccess,
+        this.launchDateUTC,
+        this.patchUrlSmall,
+        this.patchUrlLarge,
+        this.articleUrl,
+        this.timestamp,
+    )
+}
 fun LaunchNetwork.toLaunch(timestamp:LocalDateTime):Launch{
     return Launch(
         flightNumber.toLong(),

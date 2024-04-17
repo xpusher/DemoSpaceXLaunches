@@ -13,5 +13,5 @@ interface Db {
     suspend fun insertLaunch(launch:Launch)
     suspend fun removeAllLaunches()
     suspend fun removeLaunchesByFlightNumber(flightNumber:Long)
-
+    suspend fun waitDb()
 }

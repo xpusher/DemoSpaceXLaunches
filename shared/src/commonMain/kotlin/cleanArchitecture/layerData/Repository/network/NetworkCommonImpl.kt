@@ -7,11 +7,13 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.encodeToJsonElement
 
 abstract class NetworkCommonImpl: Network {
 
     override val url="https://api.spacexdata.com/v5/launches"
     override suspend fun requestLaunches(): List<LaunchNetwork> {
+        Json.Default.encodeToJsonElement(listOf<Long>())
         val client = HttpClient {
             install(ContentNegotiation) {
                 json(Json {

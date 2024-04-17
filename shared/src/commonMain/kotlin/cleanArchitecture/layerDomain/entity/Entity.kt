@@ -6,6 +6,28 @@ import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Serializable
+data class LaunchSerializable(
+    @SerialName("flight_number")
+    val flightNumber: Long,
+    @SerialName("missionName")
+    val missionName: String,
+    @SerialName("details")
+    val details: String?,
+    @SerialName("launchSuccess")
+    val launchSuccess: Long?,
+    @SerialName("launchDateUTC")
+    val launchDateUTC: String,
+    @SerialName("patchUrlSmall")
+    val patchUrlSmall: String?,
+    @SerialName("patchUrlLarge")
+    val patchUrlLarge: String?,
+    @SerialName("articleUrl")
+    val articleUrl: String?,
+    @SerialName("timestamp")
+    val timestamp: String,
+)
+
 public data class LaunchPresentation(
     public val flightNumber: Long,
     public val missionName: String,

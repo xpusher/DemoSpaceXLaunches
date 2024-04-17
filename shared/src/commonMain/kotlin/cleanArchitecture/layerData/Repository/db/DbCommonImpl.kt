@@ -25,11 +25,10 @@ import kotlinx.coroutines.launch
 
 abstract class DbCommonImpl: Db {
 
-    private lateinit var appDb: AppDb
+    protected lateinit var appDb: AppDb
 
     private val mutableAppDb=MutableStateFlow<AppDb?>(null)
-
-    private suspend fun waitDb(){
+    override suspend fun waitDb(){
         mutableAppDb.takeWhile { mutableAppDb.value==null }.collectLatest {}
     }
 
@@ -41,42 +40,34 @@ abstract class DbCommonImpl: Db {
     }
     override suspend fun insertLaunch(launch: Launch) {
         waitDb()
-        appDb.appDbQueries.insertLaunch(
-            flightNumber = launch.flightNumber,
-            missionName = launch.missionName,
-            details = launch.details,
-            launchSuccess = launch.launchSuccess,
-            launchDateUTC = launch.launchDateUTC,
-            patchUrlSmall = launch.patchUrlSmall,
-            patchUrlLarge = launch.patchUrlLarge,
-            articleUrl = launch.articleUrl,
-            timestamp = launch.timestamp
-        )
+            appDb.appDbQueries.insertLaunch(
+                flightNumber = launch.flightNumber,
+                missionName = launch.missionName,
+                details = launch.details,
+                launchSuccess = launch.launchSuccess,
+                launchDateUTC = launch.launchDateUTC,
+                patchUrlSmall = launch.patchUrlSmall,
+                patchUrlLarge = launch.patchUrlLarge,
+                articleUrl = launch.articleUrl,
+                timestamp = launch.timestamp
+            )
     }
-
     override suspend fun removeAllLaunches() {
         waitDb()
         appDb.appDbQueries.removeAllLaunches()
     }
-
     override suspend fun removeLaunchesByFlightNumber(flightNumber: Long) {
         waitDb()
         appDb.appDbQueries.removeLaunchesByFlightNumber(listOf(flightNumber))
     }
+
     init {
-
         CoroutineScope(Dispatchers.Unconfined).launch {
-
-
-
             val sqlDriver=createDriver(AppDb.Schema)
-
-
             mutableSqlDriver.value =sqlDriver
             appDb= AppDb(sqlDriver)
             mutableAppDb.value=appDb
         }
-
     }
 
 }

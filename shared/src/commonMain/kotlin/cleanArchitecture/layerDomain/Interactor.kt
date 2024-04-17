@@ -57,9 +57,9 @@ class Interactor(
         }
 
         override fun removeLaunches(flightNumber: Long) {
+
             CoroutineScope(Dispatchers.Unconfined + Job())
                 .launch {
-
                     boundaries.dbRemoveLaunchesByFlightNumber(flightNumber)
                     softUpdateLaunches()
                 }

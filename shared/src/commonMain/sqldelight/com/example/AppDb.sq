@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS Launch (
+CREATE TABLE IF NOT EXISTS  Launch (
     flightNumber INTEGER NOT NULL,
     missionName TEXT NOT NULL,
     details TEXT,
