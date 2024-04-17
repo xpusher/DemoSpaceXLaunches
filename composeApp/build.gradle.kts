@@ -129,9 +129,6 @@ android {
         debugImplementation(libs.compose.ui.tooling)
     }
 }
-compose.experimental {
-    web.application {}
-}
 compose.desktop {
     application {
         mainClass = "MainKt"

@@ -9,8 +9,8 @@ import cleanArchitecture.layerDomain.Interactor
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    CanvasBasedWindow(canvasElementId = "ComposeTarget") {
-        CompositionLocalProvider{
+    CanvasBasedWindow("ComposeTarget") {
+        //CompositionLocalProvider{
 
             val presentation=
                 remember { Presentation() }
@@ -28,6 +28,6 @@ fun main() {
 
             App(interactor,presentation)
 
-        }
+        //}
     }
 }
