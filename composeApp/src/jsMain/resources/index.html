@@ -3,13 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Compose App</title>
-    <script type="application/javascript" src="skiko.js"></script>
+    <!--    <script type="application/javascript" src="skiko.js"></script>-->
 </head>
 <body>
 
 <div>
     <canvas id="ComposeTarget"></canvas>
 </div>
-<script type="application/javascript" src="composeApp.js"></script>
+<!--<script type="application/javascript" src="composeApp.js" defer></script>-->
+<script>
+    setTimeout(() => {
+        var script = document.createElement('script');
+        script.onload = function () {
+            setTimeout(() => {
+                var script = document.createElement('script');
+                script.src = "composeApp.js";
+                document.head.appendChild(script); //or something of the likes
+            }, "500");
+        };
+        script.src = "skiko.js";
+        document.head.appendChild(script); //or something of the likes
+    }, "10");
+</script>
 </body>
 </html>

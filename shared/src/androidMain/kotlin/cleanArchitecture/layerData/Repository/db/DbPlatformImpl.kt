@@ -18,6 +18,7 @@ actual class DbPlatformImpl(private val context: Context): DbCommonImpl() {
             callback = object : AndroidSqliteDriver.Callback(AppDb.Schema.synchronous()) {},
             name = DB_NAME_FILE
         )
+
         AppDb.Schema.create(sqlDriver).await()
         return sqlDriver
     }

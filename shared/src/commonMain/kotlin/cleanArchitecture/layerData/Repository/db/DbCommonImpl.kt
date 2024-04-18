@@ -1,46 +1,33 @@
 package cleanArchitecture.layerData.Repository.db
 
 import app.cash.sqldelight.async.coroutines.awaitAsList
-import app.cash.sqldelight.db.QueryResult
 import app.cash.sqldelight.db.SqlDriver
-import app.cash.sqldelight.db.SqlSchema
 import com.example.Launch
 import com.example.project.AppDb
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.awaitCancellation
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.cancellable
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.takeWhile
-import kotlinx.coroutines.job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 abstract class DbCommonImpl: Db {
+    private lateinit var _appDb: AppDb
+    private val mutex=Mutex()
+    private suspend  fun appDb(): AppDb = mutex.withLock{
+        if (!::_appDb.isInitialized) {
+            _appDb = AppDb(createDriver(AppDb.Schema))
+            onCreateDriver(_appDb)
+        }
+        return _appDb
+    }
 
-    protected lateinit var appDb: AppDb
-
-    private val mutableAppDb=MutableStateFlow<AppDb?>(null)
-    override suspend fun waitDb(){
-        mutableAppDb.takeWhile { mutableAppDb.value==null }.collectLatest {}
+    override  suspend fun onCreateDriver(appDb: AppDb) {
     }
 
     override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
     override suspend fun selectAllLaunchesInfo(): List<Launch> {
-        waitDb()
-        appDb.appDbQueries.selectAllLaunchesInfo()
-        return appDb.appDbQueries.selectAllLaunchesInfo().awaitAsList()
+        return appDb().appDbQueries.selectAllLaunchesInfo().awaitAsList()
     }
     override suspend fun insertLaunch(launch: Launch) {
-        waitDb()
-            appDb.appDbQueries.insertLaunch(
+            appDb().appDbQueries.insertLaunch(
                 flightNumber = launch.flightNumber,
                 missionName = launch.missionName,
                 details = launch.details,
@@ -53,21 +40,11 @@ abstract class DbCommonImpl: Db {
             )
     }
     override suspend fun removeAllLaunches() {
-        waitDb()
-        appDb.appDbQueries.removeAllLaunches()
+        appDb().appDbQueries.removeAllLaunches()
     }
     override suspend fun removeLaunchesByFlightNumber(flightNumber: Long) {
-        waitDb()
-        appDb.appDbQueries.removeLaunchesByFlightNumber(listOf(flightNumber))
+        appDb().appDbQueries.removeLaunchesByFlightNumber(listOf(flightNumber))
     }
 
-    init {
-        CoroutineScope(Dispatchers.Unconfined).launch {
-            val sqlDriver=createDriver(AppDb.Schema)
-            mutableSqlDriver.value =sqlDriver
-            appDb= AppDb(sqlDriver)
-            mutableAppDb.value=appDb
-        }
-    }
 
 }
