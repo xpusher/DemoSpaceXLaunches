@@ -15,9 +15,9 @@ fun LocalDateTime.Companion.nowUTC(): LocalDateTime {
     return Clock.System.now().toLocalDateTime(TimeZone.UTC)
 }
 fun LocalDateTime.Companion.toPresentationFromUTC(localDateTime: LocalDateTime):String{
-    val localDateTime=
+    val localDateTimeFormat=
         localDateTime.toInstant(TimeZone.UTC).toLocalDateTime(TimeZone.currentSystemDefault())
-    return "${localDateTime.date} ${localDateTime.hour}:${localDateTime.minute}:${localDateTime.second}"
+    return "${localDateTimeFormat.date} ${localDateTimeFormat.hour}:${localDateTimeFormat.minute}:${localDateTimeFormat.second}"
 }
 fun LaunchSerializable.toLaunch():Launch{
     return Launch(

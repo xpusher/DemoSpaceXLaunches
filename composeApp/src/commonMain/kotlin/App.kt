@@ -138,7 +138,7 @@ fun App(interactor: Interactor?, presenter: Presenter) {
                         LazyColumn(Modifier.fillMaxWidth()) {
                             launches?.let {launches->
 
-                                items(launches) { launch->
+                                items(launches,key={it.flightNumber}) { launch->
 
                                     Row(Modifier.fillMaxWidth().animateItemPlacement(tween(durationMillis = 500))) {
 

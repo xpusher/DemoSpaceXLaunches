@@ -1,3 +1,13 @@
+## "Demo SpaceX Launches" (xpusherproj readme.md)
+
+Проект "Demo SpaceX Launches" реализует паттерн Сlean Architecture, при первом входе скачивает из сети запуски SpaceX и сохраняет в локальную БД, при последующих запусках приложеня отображаются данные из локальной БД
+
+Проект может быть собран для Веб,Андроида,АйОС,Десктопа с одинаковым интерфесом и функционалом
+
+
+
+## Kotlin Multiplatform(default readme.md)
+
 This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop, Server.
 
 * `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
@@ -7,7 +17,7 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop, Ser
     For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
     `iosMain` would be the right folder for such calls.
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
+* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
   you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
 
 * `/server` is for the Ktor server application.
