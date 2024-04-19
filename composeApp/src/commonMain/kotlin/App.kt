@@ -41,15 +41,15 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import kotlinproject.composeapp.generated.resources.Res
-import kotlinproject.composeapp.generated.resources.compose_multiplatform
-import kotlinproject.composeapp.generated.resources.launch_details
-import kotlinproject.composeapp.generated.resources.launch_name
-import kotlinproject.composeapp.generated.resources.launch_year
-import kotlinproject.composeapp.generated.resources.launches_title
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.foundation.lazy.items
+import demospacexlaunches.composeapp.generated.resources.Res
+import demospacexlaunches.composeapp.generated.resources.compose_multiplatform
+import demospacexlaunches.composeapp.generated.resources.launch_details
+import demospacexlaunches.composeapp.generated.resources.launch_name
+import demospacexlaunches.composeapp.generated.resources.launch_year
+import demospacexlaunches.composeapp.generated.resources.launches_title
 
 @OptIn(ExperimentalResourceApi::class, ExperimentalFoundationApi::class)
 @Composable
