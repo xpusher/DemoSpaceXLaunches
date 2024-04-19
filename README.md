@@ -1,4 +1,4 @@
-## "Demo SpaceX Launches" (xpusherproj readme.md)
+## "Demo SpaceX Launches" разработан в [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html)
 
 Проект "Demo SpaceX Launches" при первом входе скачивает из сети список запусков SpaceX и сохраняет в локальную БД, при последующих запусках приложеня отображаются данные из локальной БД
 
