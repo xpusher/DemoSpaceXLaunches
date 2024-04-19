@@ -66,7 +66,6 @@ class Interactor(
         }
 
     }
-
     init {
         userActions.softUpdateLaunches()
     }

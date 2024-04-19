@@ -9,7 +9,6 @@ import cleanArchitecture.layerData.Repository.RepositoryPlatformImpl
 import cleanArchitecture.layerDomain.Interactor
 import cleanArchitecture.layerDomain.entity.LaunchPresentation
 import cleanArchitecture.nowUTC
-import com.example.Launch
 import kotlinx.datetime.LocalDateTime
 
 fun main() = application {
@@ -61,23 +60,9 @@ fun AppAndroidPreview() {
                 }
 
         } }
-
-    val repository= remember {
-        RepositoryPlatformImpl()
+    AppTheme {
+        App(null, presentation)
     }
 
-    val boundaries=
-        remember {
-            Boundaries(repository)
-        }
-
-    val interactor=
-        remember {
-            Interactor(presentation, boundaries)
-        }
-
-    App(interactor,presentation)
-
-//    Text(text = "sdsdsd")
 }
 

@@ -11,6 +11,7 @@ import kotlinx.coroutines.sync.withLock
 abstract class DbCommonImpl: Db {
     private lateinit var _appDb: AppDb
     private val mutex=Mutex()
+    override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
     private suspend  fun appDb(): AppDb = mutex.withLock{
         if (!::_appDb.isInitialized) {
             _appDb = AppDb(createDriver(AppDb.Schema))
@@ -18,11 +19,8 @@ abstract class DbCommonImpl: Db {
         }
         return _appDb
     }
-
     override  suspend fun onCreateDriver(appDb: AppDb) {
     }
-
-    override val mutableSqlDriver = MutableStateFlow<SqlDriver?>(null)
     override suspend fun selectAllLaunchesInfo(): List<Launch> {
         return appDb().appDbQueries.selectAllLaunchesInfo().awaitAsList()
     }
@@ -45,6 +43,5 @@ abstract class DbCommonImpl: Db {
     override suspend fun removeLaunchesByFlightNumber(flightNumber: Long) {
         appDb().appDbQueries.removeLaunchesByFlightNumber(listOf(flightNumber))
     }
-
 
 }
