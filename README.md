@@ -5,11 +5,12 @@
 "Demo SpaceX Launches" реализован на основе паттерна Сlean Architecture
 ![Сlean Architecture](https://habrastorage.org/r/w1560/web/cbe/3fd/ad2/cbe3fdad2be24de3bd4dda6c66d56d76.png)
 
-
-
 Проект может быть собран для Веб, Андроида, АйОС, Десктопа с одинаковым интерфесом и функционалом
 
 Веб версия в интернете [Demo SpaceX Launches](https://xpusherproj.web.app/)
+Для сборки Веб версии нужен CopyWebpackPlugin[https://webpack.js.org/plugins/copy-webpack-plugin/], для его установки выполните
+npm install copy-webpack-plugin --save-dev
+
 
 Спасибо [автору](https://habr.com/ru/users/Jeevuz/) за статью [ "Заблуждения Clean Architecture"](https://habr.com/ru/companies/mobileup/articles/335382/)
 
