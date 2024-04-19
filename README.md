@@ -9,9 +9,9 @@
 
 Веб версия в интернете [Demo SpaceX Launches](https://xpusherproj.web.app/)
 
-Для сборки Веб версии нужен CopyWebpackPlugin[https://webpack.js.org/plugins/copy-webpack-plugin/], выполните
-npm install copy-webpack-plugin --save-dev
+Для сборки Веб версии нужен [CopyWebpackPlugin](https://webpack.js.org/plugins/copy-webpack-plugin/), выполните
 
+npm install copy-webpack-plugin --save-dev
 
 Спасибо [автору](https://habr.com/ru/users/Jeevuz/) за статью [ "Заблуждения Clean Architecture"](https://habr.com/ru/companies/mobileup/articles/335382/)
 
