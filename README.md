@@ -8,7 +8,8 @@
 Проект может быть собран для Веб, Андроида, АйОС, Десктопа с одинаковым интерфесом и функционалом
 
 Веб версия в интернете [Demo SpaceX Launches](https://xpusherproj.web.app/)
-Для сборки Веб версии нужен CopyWebpackPlugin[https://webpack.js.org/plugins/copy-webpack-plugin/], для его установки выполните
+
+Для сборки Веб версии нужен CopyWebpackPlugin[https://webpack.js.org/plugins/copy-webpack-plugin/], выполните
 npm install copy-webpack-plugin --save-dev
 
 
