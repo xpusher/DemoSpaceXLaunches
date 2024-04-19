@@ -1,7 +1,7 @@
 package org.example.project
 
 import App
-import cleanArchitecture.layerPresentation.Presentation
+import cleanArchitecture.layerPresentation.Presenter
 import cleanArchitecture.layerData.Repository.RepositoryPlatformImpl
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -17,8 +17,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
 
-            val presentation=
-                remember { Presentation() }
+            val presenter=
+                remember { Presenter() }
 
             val repository=
                 remember {
@@ -29,9 +29,9 @@ class MainActivity : ComponentActivity() {
                     Boundaries(repository)
                 }
             val interactor=
-                remember { Interactor(presentation, boundaries) }
+                remember { Interactor(presenter, boundaries) }
 
-            App(interactor,presentation)
+            App(interactor,presenter)
 
         }
     }

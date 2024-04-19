@@ -1,14 +1,14 @@
 import androidx.compose.runtime.remember
 import androidx.compose.ui.window.ComposeUIViewController
 import cleanArchitecture.layerData.Boundaries
-import cleanArchitecture.layerPresentation.Presentation
+import cleanArchitecture.layerPresentation.Presenter
 import cleanArchitecture.layerData.Repository.RepositoryPlatformImpl
 import cleanArchitecture.layerDomain.Interactor
 
 fun MainViewController() = ComposeUIViewController {
 
-    val presentation=
-        remember { Presentation() }
+    val presenter=
+        remember { Presenter() }
 
     val repository=
         remember { RepositoryPlatformImpl() }
@@ -20,8 +20,8 @@ fun MainViewController() = ComposeUIViewController {
 
     val interactor=
         remember {
-            Interactor(presentation, boundaries)
+            Interactor(presenter, boundaries)
         }
 
-    App(interactor,presentation)
+    App(interactor,presenter)
 }

@@ -2,10 +2,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.CanvasBasedWindow
 import cleanArchitecture.layerData.Boundaries
-import cleanArchitecture.layerPresentation.Presentation
+import cleanArchitecture.layerPresentation.Presenter
 import cleanArchitecture.layerData.Repository.RepositoryPlatformImpl
 import cleanArchitecture.layerDomain.Interactor
-import kotlinx.browser.window
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
@@ -15,8 +14,8 @@ fun main() {
             /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
         """).toString().toBoolean()
 
-        val presentation=
-            remember { Presentation(if (isMobile) 1.3f else 1f) }
+        val presenter=
+            remember { Presenter(if (isMobile) 1.3f else 1f) }
 
         val repository=
             remember { RepositoryPlatformImpl() }
@@ -27,9 +26,9 @@ fun main() {
 
         val interactor=
             remember {
-                Interactor(presentation, boundaries) }
+                Interactor(presenter, boundaries) }
 
-        App(interactor,presentation)
+        App(interactor,presenter)
 
     }
 }

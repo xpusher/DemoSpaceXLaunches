@@ -2,7 +2,7 @@ package cleanArchitecture.layerDomain
 
 import cleanArchitecture.layerData.Boundaries
 import cleanArchitecture.layerDomain.entity.LaunchPresentation
-import cleanArchitecture.layerPresentation.Presentation
+import cleanArchitecture.layerPresentation.Presenter
 import cleanArchitecture.layerDomain.usecase.UserActions
 import cleanArchitecture.toLaunchPresentation
 import kotlinx.coroutines.CoroutineScope
@@ -11,7 +11,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class Interactor(
-    private val presentation: Presentation,
+    private val presenter: Presenter,
     private val boundaries: Boundaries
 ) {
     val userActions = object : UserActions {
@@ -21,7 +21,7 @@ class Interactor(
             CoroutineScope(Dispatchers.Unconfined + Job())
                 .launch {
 
-                    presentation.mutableLaunchesPresentation.value=null
+                    presenter.mutableLaunchesPresentation.value=null
 
                     boundaries.dbClearLaunches()
 
@@ -44,7 +44,7 @@ class Interactor(
                             dbLaunches.add(it)
                         }
 
-                    presentation.mutableLaunchesPresentation.emit(
+                    presenter.mutableLaunchesPresentation.emit(
                         ArrayList<LaunchPresentation>()
                             .apply {
                                 dbLaunches.forEach {
