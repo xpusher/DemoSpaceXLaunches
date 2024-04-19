@@ -1,10 +1,19 @@
 ## "Demo SpaceX Launches" (xpusherproj readme.md)
 
-Проект "Demo SpaceX Launches" реализует паттерн Сlean Architecture, при первом входе скачивает из сети запуски SpaceX и сохраняет в локальную БД, при последующих запусках приложеня отображаются данные из локальной БД
+Проект "Demo SpaceX Launches" при первом входе скачивает из сети список запусков SpaceX и сохраняет в локальную БД, при последующих запусках приложеня отображаются данные из локальной БД
 
-Проект может быть собран для Веб,Андроида,АйОС,Десктопа с одинаковым интерфесом и функционалом
+"Demo SpaceX Launches" реализован на основе паттерна Сlean Architecture
+![Сlean Architecture](https://habrastorage.org/r/w1560/web/cbe/3fd/ad2/cbe3fdad2be24de3bd4dda6c66d56d76.png)
+
+
+
+Проект может быть собран для Веб, Андроида, АйОС, Десктопа с одинаковым интерфесом и функционалом
 
 Веб версия в интернете [Demo SpaceX Launches](https://xpusherproj.web.app/)
+
+Спасибо [автору](https://habr.com/ru/users/Jeevuz/) за статью [ "Заблуждения Clean Architecture"](https://habr.com/ru/companies/mobileup/articles/335382/)
+
+
 
 ## Kotlin Multiplatform(default readme.md)
 
