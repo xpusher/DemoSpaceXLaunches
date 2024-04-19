@@ -4,7 +4,7 @@
 
 Проект может быть собран для Веб,Андроида,АйОС,Десктопа с одинаковым интерфесом и функционалом
 
-
+Веб версия в интернете [Demo SpaceX Launches](https://xpusherproj.web.app/)
 
 ## Kotlin Multiplatform(default readme.md)
 

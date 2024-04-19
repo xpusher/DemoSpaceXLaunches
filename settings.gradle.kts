@@ -1,4 +1,4 @@
-rootProject.name = "KotlinProject"
+rootProject.name = "DemoSpaceXLaunches"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
